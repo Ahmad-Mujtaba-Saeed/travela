@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\BookTourController;
 use App\Http\Controllers\ContactusController;
@@ -35,6 +36,8 @@ Route::get('tour/testimonial',[TestimonialController::class, 'index'])->name('te
 
 Route::get('/contactus',[ContactusController::class, 'index'])->name('contact');
 
+
+Route::get('/login',[AuthController::class, 'login'])->name('login');
 
 Route::fallback(function () {
     return response()->view('404', []);
