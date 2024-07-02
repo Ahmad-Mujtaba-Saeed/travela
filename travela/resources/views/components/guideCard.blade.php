@@ -2,7 +2,7 @@
     <div class="guide-item">
         <div class="guide-img">
             <div class="guide-img-efects">
-                <img src="{{$img ?? 'img/guide-1.jpg'}}" class="img-fluid w-100 rounded-top" alt="Image">
+                <img src="{{asset($img ?? 'img/guide-1.jpg')}}" class="img-fluid w-100 rounded-top" alt="Image">
             </div>
             <div class="guide-icon rounded-pill p-2">
                 <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{$flink ?? '#' }}"><i class="fab fa-facebook-f"></i></a>
