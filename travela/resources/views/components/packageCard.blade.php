@@ -1,4 +1,4 @@
-<div class="packages-item">
+<div class="packages-item {{$extra_class ?? ''}}">
     <div class="packages-img">
         <img src="{{asset($img ?? 'img/packages-4.jpg')}}" class="img-fluid w-100 rounded-top" alt="Image">
         <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">

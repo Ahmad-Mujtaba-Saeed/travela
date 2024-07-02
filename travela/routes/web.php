@@ -34,3 +34,8 @@ Route::get('tour/travelGuide',[TravelGuideController::class, 'index'])->name('Tr
 Route::get('tour/testimonial',[TestimonialController::class, 'index'])->name('testimonial');
 
 Route::get('/contactus',[ContactusController::class, 'index'])->name('contact');
+
+
+Route::fallback(function () {
+    return response()->view('404', []);
+});
