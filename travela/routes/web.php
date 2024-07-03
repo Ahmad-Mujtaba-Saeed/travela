@@ -69,13 +69,12 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-Route::get('/login',[AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'login'])
+    ->middleware('auth.redirect') // Apply middleware here
+    ->name('login');
 // Route::post('/registerDB',[AuthController::class,'registerDB'])->name('registerDB');
 Route::post('/loginDB',[AuthController::class,'loginDB'])->name('loginDB');
-Route::post('/logout', function () {
-    Auth::logout(); 
-    return redirect('/login');
-})->name('logout');
+Route::post('/logout', [AuthController::class,'logout'])->name('logout');
 
 
 Route::fallback(function () {

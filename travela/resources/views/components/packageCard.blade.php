@@ -21,11 +21,13 @@
             <p class="mb-4">{{$Description ?? 'Hello no description'}}</p>
         </div>
         <div class="row bg-primary rounded-bottom mx-0">
+
             <div class="col-6 text-start px-0">
-                <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
+                
+                <a href="{{asset($deleteURL ?? '/Readmore')}}" class="btn-hover btn text-white py-2 px-4">{!! $delete ?? 'Read More' !!}</a>
             </div>
             <div class="col-6 text-end px-0">
-                <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                <a href="{{asset($editURL ?? '/Booknow')}}" class="btn-hover btn text-white py-2 px-4">{!! $edit ?? 'Book Now' !!}</a>
             </div>
         </div>
     </div>
