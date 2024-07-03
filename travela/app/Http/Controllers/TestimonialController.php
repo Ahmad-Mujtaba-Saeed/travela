@@ -17,10 +17,10 @@ class TestimonialController extends Controller
     }
 
     public function CreateTestimonail(){
-        return view('CreateTestimonail');
+        return view('admin/CreateTestimonail');
     }
     public function ManageTestimonail(){
-        return view('ManageTestimonail');
+        return view('admin/ManageTestimonail');
     }
 
     /**

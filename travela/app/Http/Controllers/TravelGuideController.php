@@ -17,10 +17,10 @@ class TravelGuideController extends Controller
     }
 
     public function CreateTravelGuide(){
-        return view('CreateTravelGuide');
+        return view('admin/CreateTravelGuide');
     }
     public function ManageTravelGuide(){
-        return view('ManageTravelGuide');
+        return view('admin/ManageTravelGuide');
     }
 
     /**
