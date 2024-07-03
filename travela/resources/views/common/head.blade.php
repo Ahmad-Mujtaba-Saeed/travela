@@ -60,7 +60,10 @@
                                 <a href="#" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
                                 <a href="#" class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
                                 <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
-                                <a href="#" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                    @csrf <!-- CSRF protection -->
+                                    <button type="submit" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</button>
+                                </form>
                             </div>
                         </div>
                     </div>

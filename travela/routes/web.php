@@ -39,25 +39,44 @@ Route::get('tour/testimonial',[TestimonialController::class, 'index'])->name('te
 Route::get('/contactus',[ContactusController::class, 'index'])->name('contact');
 
 
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Tours Management Routes
+    Route::prefix('/TourManage')->group(function () {
+        Route::get('/addTourCategory', [ToursController::class, 'addTourCategory'])->name('addTourCategory');
+        Route::get('/ViewCategories', [ToursController::class, 'ViewCategories'])->name('ViewCategories');
+        Route::get('/CreatePackage', [ToursController::class, 'CreatePackage'])->name('CreatePackage');
+        Route::get('/ViewPackages', [ToursController::class, 'ViewPackages'])->name('ViewPackages');
+    });
+
+    // Testimonial Guides Routes
+    Route::prefix('/TestimonialGuides')->group(function () {
+        Route::get('/CreateTestimonail', [TestimonialController::class, 'CreateTestimonail'])->name('CreateTestimonail');
+        Route::get('/ManageTestimonail', [TestimonialController::class, 'ManageTestimonail'])->name('ManageTestimonail');
+    });
+
+    // Travel Guide Routes
+    Route::prefix('/TestimonialGuides')->group(function () {
+        Route::get('/CreateTravelGuide', [TravelGuideController::class, 'CreateTravelGuide'])->name('CreateTravelGuide');
+        Route::get('/ManageTravelGuide', [TravelGuideController::class, 'ManageTravelGuide'])->name('ManageTravelGuide');
+    });
+});
+
+
+
+
+
 Route::get('/login',[AuthController::class, 'login'])->name('login');
-Route::get('/dashboard',[DashboardController::class, 'index'])->name('admin.dashboard');
-
-Route::get('/TourManage/addTourCategory',[ToursController::class, 'addTourCategory'])->name('addTourCategory');
-Route::get('/TourManage/ViewCategories',[ToursController::class, 'ViewCategories'])->name('ViewCategories');
-Route::get('/TourManage/CreatePackage',[ToursController::class, 'CreatePackage'])->name('CreatePackage');
-Route::get('/TourManage/ViewPackages',[ToursController::class, 'ViewPackages'])->name('ViewPackages');
-
-
-
-Route::get('/TestimonialGuides/CreateTestimonail',[TestimonialController::class, 'CreateTestimonail'])->name('CreateTestimonail');
-Route::get('/TestimonialGuides/ManageTestimonail',[TestimonialController::class, 'ManageTestimonail'])->name('ManageTestimonail');
-
-Route::get('/TestimonialGuides/CreateTravelGuide',[TravelGuideController::class,'CreateTravelGuide'])->name('CreateTravelGuide');
-Route::get('/TestimonialGuides/ManageTravelGuide',[TravelGuideController::class,'ManageTravelGuide'])->name('ManageTravelGuide');
-
-
 // Route::post('/registerDB',[AuthController::class,'registerDB'])->name('registerDB');
 Route::post('/loginDB',[AuthController::class,'loginDB'])->name('loginDB');
+Route::post('/logout', function () {
+    Auth::logout(); 
+    return redirect('/login');
+})->name('logout');
+
 
 Route::fallback(function () {
     return response()->view('404', []);

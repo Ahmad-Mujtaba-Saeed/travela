@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="national-plus-icon">
-            <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
+            <a href="#" class="my-auto">{!! $delete ?? '<i class="fas fa-link fa-2x text-white"></i>' !!}</a>
         </div>
     </div>
 </div>
