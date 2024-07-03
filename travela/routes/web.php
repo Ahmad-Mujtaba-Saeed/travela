@@ -4,9 +4,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\BookTourController;
 use App\Http\Controllers\ContactusController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\TourManageController;
 use App\Http\Controllers\ToursController;
 use App\Http\Controllers\TravelGuideController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +40,20 @@ Route::get('/contactus',[ContactusController::class, 'index'])->name('contact');
 
 
 Route::get('/login',[AuthController::class, 'login'])->name('login');
+Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/TourManage/addTourCategory',[ToursController::class, 'addTourCategory'])->name('addTourCategory');
+Route::get('/TourManage/ViewCategories',[ToursController::class, 'ViewCategories'])->name('ViewCategories');
+Route::get('/TourManage/CreatePackage',[ToursController::class, 'CreatePackage'])->name('CreatePackage');
+Route::get('/TourManage/ViewPackages',[ToursController::class, 'ViewPackages'])->name('ViewPackages');
+
+
+
+Route::get('/TestimonialGuides/CreateTestimonail',[TestimonialController::class, 'CreateTestimonail'])->name('CreateTestimonail');
+Route::get('/TestimonialGuides/ManageTestimonail',[TestimonialController::class, 'ManageTestimonail'])->name('ManageTestimonail');
+
+Route::get('/TestimonialGuides/CreateTravelGuide',[TravelGuideController::class,'CreateTravelGuide'])->name('CreateTravelGuide');
+Route::get('/TestimonialGuides/ManageTravelGuide',[TravelGuideController::class,'ManageTravelGuide'])->name('ManageTravelGuide');
 
 Route::fallback(function () {
     return response()->view('404', []);

@@ -36,11 +36,11 @@
                         <div class="col-md-6">
                             <div class="form-floating">
                                 <select class="form-select bg-white border-0" id="select1">
-                                    <option value="1">Destination 1</option>
-                                    <option value="2">Destination 2</option>
-                                    <option value="3">Destination 3</option>
+                                    <option value="1">Package 1</option>
+                                    <option value="2">Package 2</option>
+                                    <option value="3">Package 3</option>
                                 </select>
-                                <label for="select1">Destination</label>
+                                <label for="select1">Select Package</label>
                             </div>
                         </div>
                         <div class="col-md-6">

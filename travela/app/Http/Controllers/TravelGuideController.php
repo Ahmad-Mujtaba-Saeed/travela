@@ -16,6 +16,13 @@ class TravelGuideController extends Controller
         return view('travelGuide');
     }
 
+    public function CreateTravelGuide(){
+        return view('CreateTravelGuide');
+    }
+    public function ManageTravelGuide(){
+        return view('ManageTravelGuide');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -16,6 +16,13 @@ class TestimonialController extends Controller
         return view('testimonial');
     }
 
+    public function CreateTestimonail(){
+        return view('CreateTestimonail');
+    }
+    public function ManageTestimonail(){
+        return view('ManageTestimonail');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
