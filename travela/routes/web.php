@@ -40,7 +40,7 @@ Route::get('/contactus',[ContactusController::class, 'index'])->name('contact');
 
 
 Route::get('/login',[AuthController::class, 'login'])->name('login');
-Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class, 'index'])->name('admin.dashboard');
 
 Route::get('/TourManage/addTourCategory',[ToursController::class, 'addTourCategory'])->name('addTourCategory');
 Route::get('/TourManage/ViewCategories',[ToursController::class, 'ViewCategories'])->name('ViewCategories');
@@ -54,6 +54,10 @@ Route::get('/TestimonialGuides/ManageTestimonail',[TestimonialController::class,
 
 Route::get('/TestimonialGuides/CreateTravelGuide',[TravelGuideController::class,'CreateTravelGuide'])->name('CreateTravelGuide');
 Route::get('/TestimonialGuides/ManageTravelGuide',[TravelGuideController::class,'ManageTravelGuide'])->name('ManageTravelGuide');
+
+
+// Route::post('/registerDB',[AuthController::class,'registerDB'])->name('registerDB');
+Route::post('/loginDB',[AuthController::class,'loginDB'])->name('loginDB');
 
 Route::fallback(function () {
     return response()->view('404', []);

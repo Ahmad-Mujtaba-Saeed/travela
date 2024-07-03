@@ -1,6 +1,5 @@
+@include('admin/adminCommon/head')
 
-
-@include('common/head')
 
 <body>
   <div class="container-scroller">
@@ -13,17 +12,20 @@
                 <img src="{{asset('admin/images/logo.svg')}}" alt="logo">
               </div>
               <h4>Welcome back!</h4>
+              
               <h6 class="fw-light">Happy to see you again!</h6>
-              <form class="pt-3">
+              
+              <form class="pt-3" action="{{url('/loginDB')}}" method="POST">
+                @csrf
                 <div class="form-group">
-                  <label for="exampleInputEmail">Username</label>
+                  <label for="exampleInputEmail">Email</label>
                   <div class="input-group">
                     <div class="input-group-prepend bg-transparent">
                       <span class="input-group-text bg-transparent border-right-0">
                         <i class="ti-user text-primary"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-lg border-left-0" id="exampleInputEmail" placeholder="Username">
+                    <input type="text" name="email" class="form-control form-control-lg border-left-0" id="exampleInputEmail" placeholder="Email">
                   </div>
                 </div>
                 <div class="form-group">
@@ -34,9 +36,14 @@
                         <i class="ti-lock text-primary"></i>
                       </span>
                     </div>
-                    <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password">                        
+                    <input type="password" name="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password">                        
                   </div>
                 </div>
+                @if (session('error'))
+              <div class="alert alert-danger">
+                  {{ session('error') }}
+              </div>
+              @endif
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
                     <label class="form-check-label text-muted">
@@ -47,7 +54,7 @@
                   <a href="#" class="auth-link text-black">Forgot password?</a>
                 </div>
                 <div class="my-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">LOGIN</a>
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">LOGIN</button>
                 </div>
                 <div class="mb-2 d-flex">
                   <button type="button" class="btn btn-facebook auth-form-btn flex-grow me-1">

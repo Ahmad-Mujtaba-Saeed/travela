@@ -1,17 +1,8 @@
 @push('headlinks')
     <link rel="stylesheet" href="{{ asset('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/js/select.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/bars-1to10.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/bars-horizontal.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/bars-movie.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/bars-pill.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/bars-reversed.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/bars-square.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/bootstrap-stars.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/css-stars.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/examples.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/fontawesome-stars-o.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-bar-rating/fontawesome-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/vendors/select2/select2.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css')}}">
 @endpush
 @include('admin/adminCommon/head')
 
@@ -65,21 +56,16 @@
                                             placeholder="Add a Testimonial Comment of maximum 100 Characters"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-lg-4 grid-margin stretch-card">
-                                            <div class="card">
-                                              <div class="card-body">
-                                                <h4 class="card-title">CSS rating</h4>
-                                                <p class="card-description">CSS star rating</p>
-                                                <select id="example-css" name="rating" autocomplete="off">
-                                                  <option value="1">1</option>
-                                                  <option value="2">2</option>
-                                                  <option value="3">3</option>
-                                                  <option value="4">4</option>
-                                                  <option value="5">5</option>
-                                                </select>
-                                              </div>
-                                            </div>
-                                          </div>
+                                        <div class="form-group">
+                                          <label>Select Rating for this testimonail</label>
+                                          <select class="js-example-basic-single w-100">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                          </select>
+                                        </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     <button class="btn btn-light">Cancel</button>
@@ -101,13 +87,13 @@
     @push('footerlinks')
         <script src="{{ asset('admin/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
         <script src="{{ asset('admin/vendors/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
-        <!-- Custom js for this page-->
-        <script src="{{ asset('admin/vendors/jquery-bar-rating/jquery.barrating.min.js') }}"></script>
         <script src="{{ asset('admin/js/file-upload.js') }}"></script>
         <script src="{{ asset('admin/js/jquery.cookie.js') }}" type="text/javascript"></script>
         <script src="{{ asset('admin/js/dashboard.js') }}"></script>
         <script src="{{ asset('admin/js/Chart.roundedBarCharts.js') }}"></script>
         <script src="{{ asset('admin/js/form-validation.js') }}"></script>
         <script src="{{ asset('admin/js/bt-maxLength.js') }}"></script>
+        <script src="{{ asset('admin/vendors/select2/select2.min.js') }}"></script>
+        <script src="{{ asset('admin/js/select2.js') }}"></script>
     @endpush
     @include('admin/adminCommon/footer')
