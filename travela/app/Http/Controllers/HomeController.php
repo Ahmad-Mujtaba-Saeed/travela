@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home'); // Return the home view
+        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
+        return view('home',compact('Data')); // Return the home view
     }
     public function aboutUs(){
-        return view('about');
+        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
+        return view('about',compact('Data'));
     }
 }

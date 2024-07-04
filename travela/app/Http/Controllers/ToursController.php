@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TourCategory;
 use App\Models\TourPackage;
+use App\Models\User;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Validator;
@@ -11,7 +12,8 @@ use Validator;
 class ToursController extends Controller
 {
     public function index(){
-        return view('Tour');
+        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
+        return view('Tour',compact('Data'));
     }
     public function addTourCategory(){
         return view('admin/addCategory');
@@ -26,7 +28,8 @@ class ToursController extends Controller
         return view('admin/ViewPackages');
     }
     public function Packages(){
-        return view('packages');
+        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
+        return view('packages',compact('Data'));
     }
 
 
@@ -95,10 +98,10 @@ class ToursController extends Controller
             'Rating' => $request->input('Rating'),
         ]);
         if($tourPackage){
-            return redirect()->back()->with('success', 'Tour Category added successfully!');
+            return redirect()->back()->with('success', 'New Package created successfully!');
         }
         else{
-            return redirect()->back()->with('error', 'Tour Category added successfully!');
+            return redirect()->back()->with('error', 'Failed to create new package!');
         }
     }
 

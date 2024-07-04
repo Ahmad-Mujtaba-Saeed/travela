@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ContactusController extends Controller
@@ -13,7 +14,8 @@ class ContactusController extends Controller
      */
     public function index()
     {
-        return view('contact');
+        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
+        return view('contact',compact('Data'));
     }
 
     /**

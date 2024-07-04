@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TourGuide;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -15,7 +16,8 @@ class TravelGuideController extends Controller
      */
     public function index()
     {
-        return view('travelGuide');
+        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
+        return view('travelGuide',compact('Data'));
     }
 
     public function CreateTravelGuide(){
@@ -41,11 +43,7 @@ class TravelGuideController extends Controller
             'llink' => 'required|string',
         ]);
         if($validator->fails()){
-            $response = [
-                'success' => false,
-                'message' => $validator->errors()
-            ];
-            return $response;
+            return redirect()->back()->with('error', $validator->errors());
         }
         if ($request->hasFile('img')) {
             $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
@@ -60,10 +58,10 @@ class TravelGuideController extends Controller
             'llink' => $request->input('llink'),
         ]);
         if($testimonial){
-            return redirect()->back()->with('success', 'Tour Category added successfully!');
+            return redirect()->back()->with('success', 'New Travel Guide added successfully!');
         }
         else{
-            return redirect()->back()->with('error', 'Tour Category added successfully!');
+            return redirect()->back()->with('error', 'Failed to add Travel Guide!');
         }
     }
 

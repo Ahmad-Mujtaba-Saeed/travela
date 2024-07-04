@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testimonail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -15,7 +16,8 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        return view('testimonial');
+        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
+        return view('testimonial',compact('Data'));
     }
 
     public function CreateTestimonail(){
@@ -58,10 +60,10 @@ class TestimonialController extends Controller
             'Rating' => $request->input('Rating')
         ]);
         if($testimonial){
-            return redirect()->back()->with('success', 'Tour Category added successfully!');
+            return redirect()->back()->with('success', 'New Testimonial added successfully!');
         }
         else{
-            return redirect()->back()->with('error', 'Tour Category added successfully!');
+            return redirect()->back()->with('error', 'Failed to add Testimonial!');
         }
     }
 

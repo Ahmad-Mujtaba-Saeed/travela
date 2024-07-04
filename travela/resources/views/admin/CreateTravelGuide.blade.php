@@ -7,7 +7,7 @@
 <body class="with-welcome-text">
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
-        @include('admin/adminCommon/navbar')
+            @include('admin/adminCommon/navbar')
 
 
         <div class="container-fluid page-body-wrapper">
@@ -25,50 +25,60 @@
                                 <p class="card-description">
                                     Tour Guide helps the customers of explaining their Packages and Go along with them
                                 </p>
-                                <form class="forms-sample">
-                                    
-                                        <div class="form-group" action="{{url('/TestimonialGuides/CreateTravelGuideDB')}}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <label for="exampleInputName1">Name</label>
-                                            <input type="text" name="Name" class="form-control" id="exampleInputName1"
-                                                placeholder="Name">
+                                <form class="forms-sample"  action="{{ url('/TestimonialGuides/CreateTravelGuideDB') }}"
+                                method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        @csrf
+                                        <label for="exampleInputName1">Name</label>
+                                        <input type="text" name="Name" class="form-control" id="exampleInputName1"
+                                            placeholder="Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Upload Image of Travel Guide</label>
+                                        <input type="file" name="img" class="file-upload-default">
+                                        <div class="input-group col-xs-12">
+                                            <input type="text" class="form-control file-upload-info" disabled
+                                                placeholder="Upload Image">
+                                            <span class="input-group-append">
+                                                <button class="file-upload-browse btn btn-primary"
+                                                    type="button">Upload</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="material-form">
+                                        <div class="form-group">
+                                            <input name="flink" type="text" required="required" />
+                                            <label for="input" class="control-label">Facebook Link</label><i
+                                                class="bar"></i>
                                         </div>
                                         <div class="form-group">
-                                            <label>Upload Image of Travel Guide</label>
-                                            <input type="file" name="img" class="file-upload-default">
-                                            <div class="input-group col-xs-12">
-                                                <input type="text" class="form-control file-upload-info" disabled
-                                                    placeholder="Upload Image">
-                                                <span class="input-group-append">
-                                                    <button class="file-upload-browse btn btn-primary"
-                                                        type="button">Upload</button>
-                                                </span>
-                                            </div>
+                                            <input name="tlink" type="text" required="required" />
+                                            <label for="input" class="control-label">Twitter Link</label><i
+                                                class="bar"></i>
                                         </div>
-                                        <div class="material-form">
-                                            <div class="form-group">
-                                                <input name="flink" type="text" required="required" />
-                                                <label for="input" class="control-label">Facebook Link</label><i
-                                                    class="bar"></i>
-                                            </div>
-                                            <div class="form-group">
-                                                <input name="tlink" type="text" required="required" />
-                                                <label for="input" class="control-label">Twitter Link</label><i
-                                                    class="bar"></i>
-                                            </div>
-                                            <div class="form-group">
-                                                <input name="ilink" type="text" required="required" />
-                                                <label for="input" class="control-label">Instagram Link</label><i
-                                                    class="bar"></i>
-                                            </div>
-                                            <div class="form-group">
-                                                <input name="llink" type="text" required="required" />
-                                                <label for="input" class="control-label">Linkedin Link</label><i
-                                                    class="bar"></i>
-                                            </div>
+                                        <div class="form-group">
+                                            <input name="ilink" type="text" required="required" />
+                                            <label for="input" class="control-label">Instagram Link</label><i
+                                                class="bar"></i>
                                         </div>
-                                        <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                        <button class="btn btn-light">Cancel</button>
+                                        <div class="form-group">
+                                            <input name="llink" type="text" required="required" />
+                                            <label for="input" class="control-label">Linkedin Link</label><i
+                                                class="bar"></i>
+                                        </div>
+                                    </div>
+                                    @if (session('error'))
+                                        <div class="alert alert-danger">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+                                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                                    <button class="btn btn-light">Cancel</button>
                                 </form>
                             </div>
                         </div>
