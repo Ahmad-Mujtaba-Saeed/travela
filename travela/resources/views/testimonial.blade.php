@@ -25,10 +25,9 @@
                     <h1 class="mb-0">Our Clients Say!!!</h1>
                 </div>
                 <div class="testimonial-carousel owl-carousel">
-                    @include('components/testimonialCard',['img'=>'img/testimonial-1.jpg','Paragraph'=>'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,','Name' => 'John Abraham' ,'Location' => 'New York, USA' ,'Stars' => 5])
-                    @include('components/testimonialCard',['img'=>'img/testimonial-2.jpg','Paragraph'=>'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,','Name' => 'John Abraham' ,'Location' => 'New York, USA' ,'Stars' => 4])
-                    @include('components/testimonialCard',['img'=>'img/testimonial-3.jpg','Paragraph'=>'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,','Name' => 'John Abraham' ,'Location' => 'New York, USA' ,'Stars' => 3])
-                    @include('components/testimonialCard',['img'=>'img/testimonial-4.jpg','Paragraph'=>'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,','Name' => 'John Abraham' ,'Location' => 'New York, USA' ,'Stars' => 2])
+                @foreach ($testimonials as $item)
+                    @include('components/testimonialCard',['img'=> "storage/{$item->ImgName}", 'Paragraph' => $item->Comment ,'Name' => $item->Name ,'Location' => $item->Location ,'Stars' => $item->Rating])
+                @endforeach
                 </div>
             </div>
         </div>

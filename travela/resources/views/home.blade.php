@@ -144,10 +144,9 @@
                     <h1 class="mb-0">Meet Our Guide</h1>
                 </div>
                 <div class="row g-4">
-                    @include('components/guideCard',['img'=> 'img/guide-1.jpg','flink'=> '#','tlink'=> '#','ilink'=> '#','llink'=> '#','Name'=> 'Ahmad Mujtaba','Designation'=> 'Designation'])
-                    @include('components/guideCard',['img'=> 'img/guide-2.jpg','flink'=> '#','tlink'=> '#','ilink'=> '#','llink'=> '#','Name'=> 'Moshin','Designation'=> 'Designation'])
-                    @include('components/guideCard',['img'=> 'img/guide-3.jpg','flink'=> '#','tlink'=> '#','ilink'=> '#','llink'=> '#','Name'=> 'Awais','Designation'=> 'Designation'])
-                    @include('components/guideCard',['img'=> 'img/guide-4.jpg','flink'=> '#','tlink'=> '#','ilink'=> '#','llink'=> '#','Name'=> 'M Saeed','Designation'=> 'Designation'])
+                @foreach ($travelGuide as $item)
+                @include('components/guideCard',['img'=> "storage/{$item->ImgName}" , 'flink'=> $item->flink ,'tlink'=> $item->tlink,'ilink'=> $item->ilink,'llink'=> $item->llink,'Name'=> $item->Name,'Designation'=> 'Designation'])
+                @endforeach
                 </div>
             </div>
         </div>

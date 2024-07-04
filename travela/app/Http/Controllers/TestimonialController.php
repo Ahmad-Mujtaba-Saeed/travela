@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testimonail;
+use App\Models\TourGuide;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
@@ -16,8 +17,9 @@ class TestimonialController extends Controller
      */
     public function index()
     {
+        $testimonials = Testimonail::all();
         $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
-        return view('testimonial',compact('Data'));
+        return view('testimonial',compact('Data','testimonials'));
     }
 
     public function CreateTestimonail(){
