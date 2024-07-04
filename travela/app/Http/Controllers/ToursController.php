@@ -12,24 +12,30 @@ use Validator;
 class ToursController extends Controller
 {
     public function index(){
+        $TourCategory = TourCategory::all();
         $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
-        return view('Tour',compact('Data'));
+        return view('Tour',compact('Data','TourCategory'));
     }
     public function addTourCategory(){
         return view('admin/addCategory');
     }
     public function ViewCategories(){
-        return view('admin/ViewCategories');
+        $TourCategory = TourCategory::all();
+        
+        return view('admin/ViewCategories',compact('TourCategory'));
     }
     public function CreatePackage(){
-        return view('admin/CreatePackage');
+        $TourCategory = TourCategory::all();
+        return view('admin/CreatePackage',compact('TourCategory'));
     }
     public function ViewPackages(){
-        return view('admin/ViewPackages');
+        $tourPackages = TourPackage::all();
+        return view('admin/ViewPackages',compact('tourPackages'));
     }
     public function Packages(){
+        $tourPackages = TourPackage::all();
         $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
-        return view('packages',compact('Data'));
+        return view('packages',compact('Data','tourPackages'));
     }
 
 
@@ -59,9 +65,10 @@ class ToursController extends Controller
             return redirect()->back()->with('success', 'Tour Category added successfully!');
         }
         else{
-            return redirect()->back()->with('error', 'Tour Category added successfully!');
+            return redirect()->back()->with('error', 'Failed to add Tour Category!');
         }
     }
+
 
 
 
@@ -72,8 +79,8 @@ class ToursController extends Controller
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'CategoryID' => 'required',
             'Days' => 'required|integer',
-            'ShortDescription' => 'required|string',
-            'DetailedDescription' => 'required|string',
+            'ShortDescription' => 'required|',
+            'DetailedDescription' => 'required|',
             'Rating' => 'required'
         ]);
         if($validator->fails()){

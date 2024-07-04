@@ -38,12 +38,9 @@
                                 <div class="tab-content">
                                     <div id="NationalTab-1" class="tab-pane fade show p-0 active">
                                         <div class="row g-4">
-                                            @include('components/TourCardCategory',['img' => 'img/explore-tour-1.jpg' ,'TourType' => 'Weekend Tour' , 'places','View All Place' , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>'    ])
-                                            @include('components/TourCardCategory',['img' => 'img/explore-tour-2.jpg' ,'TourType' => 'Holiday Tour' , 'places','View All Place' , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>'    ])
-                                            @include('components/TourCardCategory',['img' => 'img/explore-tour-3.jpg' ,'TourType' => 'Road Trips' , 'places','View All Place'   , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>'    ])
-                                            @include('components/TourCardCategory',['img' => 'img/explore-tour-4.jpg' ,'TourType' => 'Historical Trips' , 'places','View All Place' , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>'])
-                                            @include('components/TourCardCategory',['img' => 'img/explore-tour-5.jpg' ,'TourType' => 'Family Tour' , 'places','View All Place' , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>'])
-                                            @include('components/TourCardCategory',['img' => 'img/explore-tour-6.jpg' ,'TourType' => 'Beach Tour' , 'places','View All Place' , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>'])
+                                            @foreach ($TourCategory as $item)
+                                                @include('components/TourCardCategory',['img' => "storage/{$item->ImgName}" ,'TourType' => $item->Type , 'places','View All Place' , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>'    ])
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

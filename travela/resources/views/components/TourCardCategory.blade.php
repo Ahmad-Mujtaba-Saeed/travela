@@ -1,6 +1,6 @@
 <div class="col-md-6 col-lg-4">
     <div class="national-item">
-        <img src="{{asset($img ?? 'img/explore-tour-1.jpg')}}" class="img-fluid w-100 rounded" alt="Image">
+        <img src="{{ asset( $img ?? 'img/explore-tour-1.jpg')}}" class="img-fluid w-100 rounded" alt="Image">
         <div class="national-content">
             <div class="national-info">
                 <h5 class="text-white text-uppercase mb-2">{{$TourType ?? 'Weekend Tour'}}</h5>

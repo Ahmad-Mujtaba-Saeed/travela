@@ -31,20 +31,20 @@
                             <div class="text-center mb-4">
                                 <i class="fa fa-map-marker-alt fa-3x text-primary"></i>
                                 <h4 class="text-primary"><Address></Address></h4>
-                                <p class="mb-0">123 ranking Street, <br> New York, USA</p>
+
+                                <p class="mb-0">{{$Data->home_address ?? '123 ranking Street, New York, USA' }}</p>
                             </div>
                             <div class="text-center mb-4">
                                 <i class="fa fa-phone-alt fa-3x text-primary mb-3"></i>
                                 <h4 class="text-primary">Mobile</h4>
-                                <p class="mb-0">+012 345 67890</p>
-                                <p class="mb-0">+012 345 67890</p>
+                                <p class="mb-0">{{$Data->Ph_Num ?? '+012 345 67890'}}</p>
+                                <p class="mb-0">{{$Data->extraPh_Num ?? '+012 345 67890'}}</p>
                             </div>
                            
                             <div class="text-center">
                                 <i class="fa fa-envelope-open fa-3x text-primary mb-3"></i>
                                 <h4 class="text-primary">Email</h4>
-                                <p class="mb-0">info@example.com</p>
-                                <p class="mb-0">info@example.com</p>
+                                <p class="mb-0">{{$Data->email ?? 'info@example.com'}}</p>
                             </div>
                         </div>
                     </div>

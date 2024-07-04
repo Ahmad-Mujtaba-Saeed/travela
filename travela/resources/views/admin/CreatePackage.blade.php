@@ -55,11 +55,9 @@
                                         <div class="form-group">
                                           <label>Select Category For this Package</label>
                                           <select name="CategoryID" class="js-example-basic-single w-100">
-                                            <option value="1">Family Tour</option>
-                                            <option value="2">Road Trip</option>
-                                            <option value="3">Historical Trip</option>
-                                            <option value="4">Northen areas Tour</option>
-                                            <option value="5">Russian Tour</option>
+                                            @foreach ($TourCategory as $item)
+                                            <option value="{{$item->id}}">{{$item->Type}}</option>
+                                            @endforeach
                                           </select>
                                         </div>
                                     </div>
@@ -80,8 +78,8 @@
                                       </div>
                                     <div class="form-group">
                                         <label for="exampleInputName3">Short Description</label>
-                                        <textarea name="ShortDescription" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100" rows="2"
-                                            placeholder="Short Description of Tour of maximum 100 Characters"></textarea>
+                                        <textarea name="ShortDescription" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="300" rows="2"
+                                            placeholder="Short Description of Tour of maximum 500 Characters"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="tinyMceExample">Detailed Description</label>

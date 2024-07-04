@@ -104,12 +104,9 @@
                     <div class="tab-content">
                         <div id="NationalTab-1" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
-                                @include('components/TourCardCategory',['img' => 'img/explore-tour-1.jpg' ,'TourType' => 'Weekend Tour' , 'places','View All Place'])
-                                @include('components/TourCardCategory',['img' => 'img/explore-tour-2.jpg' ,'TourType' => 'Holiday Tour' , 'places','View All Place'])
-                                @include('components/TourCardCategory',['img' => 'img/explore-tour-3.jpg' ,'TourType' => 'Road Trips' , 'places','View All Place'])
-                                @include('components/TourCardCategory',['img' => 'img/explore-tour-4.jpg' ,'TourType' => 'Historical Trips' , 'places','View All Place'])
-                                @include('components/TourCardCategory',['img' => 'img/explore-tour-5.jpg' ,'TourType' => 'Family Tour' , 'places','View All Place'])
-                                @include('components/TourCardCategory',['img' => 'img/explore-tour-6.jpg' ,'TourType' => 'Beach Tour' , 'places','View All Place'])
+                            @foreach ($TourCategory as $item)
+                                @include('components/TourCardCategory',['img' => "storage/{$item->ImgName}" ,'TourType' => $item->Type , 'places','View All Place' ])
+                            @endforeach
                             </div>
                         </div>
                     </div>
@@ -126,10 +123,9 @@
                     <h1 class="mb-0">Most Popular Packages</h1>
                 </div>
                 <div class="packages-carousel owl-carousel">
-                    @include('components/packageCard',['img' => 'img/packages-4.jpg', 'Location' => 'The New California' ,'Days'=> '3 days' ,'Cost' => '$449.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat'])
-                    @include('components/packageCard',['img' => 'img/packages-2.jpg', 'Location' => 'Venice - Italy' ,'Days'=> '3 days' ,'Cost' => '$349.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ])
-                    @include('components/packageCard',['img' => 'img/packages-3.jpg', 'Location' => 'Discover Japan' ,'Days'=> '3 days' ,'Cost' => '$549.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ,''])
-                    @include('components/packageCard',['img' => 'img/packages-1.jpg', 'Location' => 'Thayland Trip' ,'Days'=> '3 days' ,'Cost' => '$649.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ,''])
+                    @foreach ($tourPackages as $item)
+                        @include('components/packageCard',['img' => "storage/{$item->ImgName}" , 'Location' => $item->Location ,'Days'=> "{$item->Days} Days" ,'Cost' => $item->Cost, 'Description' => $item->ShortDescription , 'Stars' => $item->Rating])
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -165,11 +161,11 @@
                     <h5 class="section-title px-3">Testimonial</h5>
                     <h1 class="mb-0">Our Clients Say!!!</h1>
                 </div>
+                
                 <div class="testimonial-carousel owl-carousel">
-                    @include('components/testimonialCard',['img'=>'img/testimonial-1.jpg','Paragraph'=>'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,','Name' => 'John Abraham' ,'Location' => 'New York, USA' ,'Stars' => 5])
-                    @include('components/testimonialCard',['img'=>'img/testimonial-2.jpg','Paragraph'=>'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,','Name' => 'John Abraham' ,'Location' => 'New York, USA' ,'Stars' => 4])
-                    @include('components/testimonialCard',['img'=>'img/testimonial-3.jpg','Paragraph'=>'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,','Name' => 'John Abraham' ,'Location' => 'New York, USA' ,'Stars' => 3])
-                    @include('components/testimonialCard',['img'=>'img/testimonial-4.jpg','Paragraph'=>'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,','Name' => 'John Abraham' ,'Location' => 'New York, USA' ,'Stars' => 2])
+                    @foreach ($testimonials as $item)
+                        @include('components/testimonialCard',['img'=> "storage/{$item->ImgName}", 'Paragraph' => $item->Comment ,'Name' => $item->Name ,'Location' => $item->Location ,'Stars' => $item->Rating])
+                    @endforeach
                 </div>
             </div>
         </div>

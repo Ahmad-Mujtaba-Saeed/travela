@@ -25,14 +25,9 @@
             <h1 class="mb-0">Awesome Packages</h1>
         </div>
         <div class="row m-0 p-0 g-4">
-            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => 'img/packages-4.jpg', 'Location' => 'The New California' ,'Days'=> '3 days' ,'Cost' => '$449.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat'])
-            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => 'img/packages-2.jpg', 'Location' => 'Venice - Italy' ,'Days'=> '3 days' ,'Cost' => '$349.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ])
-            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => 'img/packages-3.jpg', 'Location' => 'Discover Japan' ,'Days'=> '3 days' ,'Cost' => '$549.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ,''])
-            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => 'img/packages-1.jpg', 'Location' => 'Thayland Trip' ,'Days'=> '3 days' ,'Cost' => '$649.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ,''])
-            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => 'img/packages-4.jpg', 'Location' => 'The New California' ,'Days'=> '3 days' ,'Cost' => '$449.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat'])
-            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => 'img/packages-2.jpg', 'Location' => 'Venice - Italy' ,'Days'=> '3 days' ,'Cost' => '$349.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ])
-            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => 'img/packages-3.jpg', 'Location' => 'Discover Japan' ,'Days'=> '3 days' ,'Cost' => '$549.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ,''])
-            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => 'img/packages-1.jpg', 'Location' => 'Thayland Trip' ,'Days'=> '3 days' ,'Cost' => '$649.00', 'Description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat' ,''])
+        @foreach ($tourPackages as $item)
+            @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,'img' => "storage/{$item->ImgName}" , 'Location' => $item->Location ,'Days'=> "{$item->Days} Days" ,'Cost' => $item->Cost, 'Description' => $item->ShortDescription , 'Stars' => $item->Rating])
+        @endforeach
         </div>
     </div>
 </div>
