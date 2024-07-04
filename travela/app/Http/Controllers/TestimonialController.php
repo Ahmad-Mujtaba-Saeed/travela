@@ -26,7 +26,8 @@ class TestimonialController extends Controller
         return view('admin/CreateTestimonail');
     }
     public function ManageTestimonail(){
-        return view('admin/ManageTestimonail');
+        $testimonials = Testimonail::all();
+        return view('admin/ManageTestimonail',compact('testimonials'));
     }
 
     /**

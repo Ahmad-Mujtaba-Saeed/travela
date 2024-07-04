@@ -24,7 +24,8 @@ class TravelGuideController extends Controller
         return view('admin/CreateTravelGuide');
     }
     public function ManageTravelGuide(){
-        return view('admin/ManageTravelGuide');
+        $travelGuide = TourGuide::all();
+        return view('admin/ManageTravelGuide',compact('travelGuide'));
     }
 
     /**

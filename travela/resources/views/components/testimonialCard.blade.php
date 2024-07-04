@@ -1,4 +1,4 @@
-<div class="testimonial-item text-center rounded pb-4">
+<div class="testimonial-item text-center rounded pb-4 {{$extra_class ?? ''}}">
     <div class="testimonial-comment bg-light rounded p-4">
         <p class="text-center mb-5">{{$Paragraph ?? 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro officiis. Vero reiciendis,'}}</p>
     </div>
