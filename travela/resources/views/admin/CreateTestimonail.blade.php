@@ -27,20 +27,21 @@
                                 <p class="card-description">
                                     A testimonial is a formal statement testifying to someone's character and qualifications
                                 </p>
-                                <form class="forms-sample">
+                                <form class="forms-sample" action="{{url('/TestimonialGuides/CreateTestimonailDB')}}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="form-group">
                                         <label for="exampleInputName1">Name</label>
-                                        <input type="text" class="form-control" id="exampleInputName1"
+                                        <input name="Name" type="text" class="form-control" id="exampleInputName1"
                                             placeholder="Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputName1">Location</label>
-                                        <input type="text" class="form-control" id="exampleInputName1"
+                                        <input type="text" name="Location" class="form-control" id="exampleInputName1"
                                             placeholder="Location">
                                     </div>
                                     <div class="form-group">
                                         <label>Upload testimonail image</label>
-                                        <input type="file" name="img[]" class="file-upload-default">
+                                        <input type="file" name="img" class="file-upload-default">
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" disabled
                                                 placeholder="Upload Image">
@@ -52,13 +53,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputName3">Testimonial Comment</label>
-                                        <textarea id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100" rows="2"
+                                        <textarea name="Comment" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100" rows="2"
                                             placeholder="Add a Testimonial Comment of maximum 100 Characters"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-group">
                                           <label>Select Rating for this testimonail</label>
-                                          <select class="js-example-basic-single w-100">
+                                          <select name="Rating" class="js-example-basic-single w-100">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -67,6 +68,16 @@
                                           </select>
                                         </div>
                                     </div>
+                                    @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     <button class="btn btn-light">Cancel</button>
                                 </form>

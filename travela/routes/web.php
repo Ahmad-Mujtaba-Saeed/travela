@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/aboutus',[HomeController::class, 'aboutUs'])->name('aboutUs');
-Route::get('/packages',[PackagesController::class, 'index'])->name('OurPackages');
+Route::get('/packages',[ToursController::class, 'Packages'])->name('Packages');
 Route::get('/blogs',[BlogsController::class, 'index'])->name('OurBlogs');
 
 
@@ -47,20 +47,24 @@ Route::middleware(['auth'])->group(function () {
     // Tours Management Routes
     Route::prefix('/TourManage')->group(function () {
         Route::get('/addTourCategory', [ToursController::class, 'addTourCategory'])->name('addTourCategory');
+        Route::post('/addTourCategoryDB', [ToursController::class, 'addTourCategoryDB'])->name('addTourCategoryDB');
         Route::get('/ViewCategories', [ToursController::class, 'ViewCategories'])->name('ViewCategories');
         Route::get('/CreatePackage', [ToursController::class, 'CreatePackage'])->name('CreatePackage');
+        Route::post('/CreatePackageDB', [ToursController::class, 'CreatePackageDB'])->name('CreatePackageDB');
         Route::get('/ViewPackages', [ToursController::class, 'ViewPackages'])->name('ViewPackages');
     });
 
-    // Testimonial Guides Routes
+    // Testimonial Routes
     Route::prefix('/TestimonialGuides')->group(function () {
         Route::get('/CreateTestimonail', [TestimonialController::class, 'CreateTestimonail'])->name('CreateTestimonail');
+        Route::post('/CreateTestimonailDB', [TestimonialController::class, 'create'])->name('CreateTestimonailDB');
         Route::get('/ManageTestimonail', [TestimonialController::class, 'ManageTestimonail'])->name('ManageTestimonail');
     });
 
     // Travel Guide Routes
     Route::prefix('/TestimonialGuides')->group(function () {
         Route::get('/CreateTravelGuide', [TravelGuideController::class, 'CreateTravelGuide'])->name('CreateTravelGuide');
+        Route::post('/CreateTravelGuideDB', [TravelGuideController::class, 'create'])->name('CreateTravelGuideDB');
         Route::get('/ManageTravelGuide', [TravelGuideController::class, 'ManageTravelGuide'])->name('ManageTravelGuide');
     });
 });

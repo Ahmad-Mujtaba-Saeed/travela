@@ -28,19 +28,20 @@
                                 <p class="card-description">
                                     Explain everything briefly and clear.
                                 </p>
-                                <form class="forms-sample">
+                                <form class="forms-sample" action="{{url('/TourManage/CreatePackageDB')}}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="form-group">
                                         <label for="exampleInputName1">Tour Location</label>
-                                        <input type="text" class="form-control" id="exampleInputName1"
-                                            placeholder="ie., Family Tour , Historical Trip , Road Trip">
+                                        <input type="text" name="Location" class="form-control" id="exampleInputName1"
+                                            placeholder="ie., Faislabad , Lahore , Murree">
                                     </div>
                                     <div class="form-group">
                                         <label>Cost of Tour</label>
-                                        <input class="form-control" data-inputmask="'alias': 'currency'" />
+                                        <input name="Cost" type="text" class="form-control" data-inputmask="'alias': 'currency'" />
                                     </div>
                                     <div class="form-group">
                                         <label>File upload</label>
-                                        <input type="file" name="img[]" class="file-upload-default">
+                                        <input type="file" name="img" class="file-upload-default">
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" disabled
                                                 placeholder="Upload Image">
@@ -53,31 +54,51 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                           <label>Select Category For this Package</label>
-                                          <select class="js-example-basic-single w-100">
-                                            <option value="Family Tour">Family Tour</option>
-                                            <option value="Road Trip">Road Trip</option>
-                                            <option value="Historical Trip">Historical Trip</option>
-                                            <option value="Northen areas Tour">Northen areas Tour</option>
-                                            <option value="Russian Tour">Russian Tour</option>
+                                          <select name="CategoryID" class="js-example-basic-single w-100">
+                                            <option value="1">Family Tour</option>
+                                            <option value="2">Road Trip</option>
+                                            <option value="3">Historical Trip</option>
+                                            <option value="4">Northen areas Tour</option>
+                                            <option value="5">Russian Tour</option>
                                           </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputName1">Days of Tour</label>
-                                        <input type="number" class="form-control" id="exampleInputName1"
+                                        <input name="Days" type="number" class="form-control" id="exampleInputName1"
                                             placeholder="Number of Days of Tour">
                                     </div>
                                     <div class="form-group">
+                                        <label>Select Rating for this Package</label>
+                                        <select name="Rating" class="js-example-basic-single w-100">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                        </select>
+                                      </div>
+                                    <div class="form-group">
                                         <label for="exampleInputName3">Short Description</label>
-                                        <textarea id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100" rows="2"
+                                        <textarea name="ShortDescription" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100" rows="2"
                                             placeholder="Short Description of Tour of maximum 100 Characters"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="tinyMceExample">Detailed Description</label>
-                                        <textarea id='tinyMceExample'>
+                                        <textarea name="DetailedDescription" id='tinyMceExample'>
                                         Edit your content here...
                                     </textarea>
                                     </div>
+                                    @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     <button class="btn btn-light">Cancel</button>
                                 </form>

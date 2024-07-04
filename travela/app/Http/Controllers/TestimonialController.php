@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Testimonail;
 use Illuminate\Http\Request;
+use Validator;
 
 class TestimonialController extends Controller
 {
@@ -28,9 +30,39 @@ class TestimonialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'Name' => 'required|string',
+            'Location' => 'required|string',
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'Comment' => 'required|string',
+            'Rating' => 'required'
+        ]);
+        if($validator->fails()){
+            $response = [
+                'success' => false,
+                'message' => $validator->errors()
+            ];
+            return $response;
+        }
+        if ($request->hasFile('img')) {
+            $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
+            $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
+        }
+        $testimonial = Testimonail::create([
+            'Name' => $request->input('Name'),
+            'ImgName' => $filePath,
+            'Location' => $request->input('Location'),
+            'Comment' => $request->input('Comment'),
+            'Rating' => $request->input('Rating')
+        ]);
+        if($testimonial){
+            return redirect()->back()->with('success', 'Tour Category added successfully!');
+        }
+        else{
+            return redirect()->back()->with('error', 'Tour Category added successfully!');
+        }
     }
 
     /**

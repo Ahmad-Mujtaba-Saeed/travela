@@ -27,14 +27,15 @@
                                 </p>
                                 <form class="forms-sample">
                                     
-                                        <div class="form-group">
+                                        <div class="form-group" action="{{url('/TestimonialGuides/CreateTravelGuideDB')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
                                             <label for="exampleInputName1">Name</label>
-                                            <input type="text" class="form-control" id="exampleInputName1"
+                                            <input type="text" name="Name" class="form-control" id="exampleInputName1"
                                                 placeholder="Name">
                                         </div>
                                         <div class="form-group">
                                             <label>Upload Image of Travel Guide</label>
-                                            <input type="file" name="img[]" class="file-upload-default">
+                                            <input type="file" name="img" class="file-upload-default">
                                             <div class="input-group col-xs-12">
                                                 <input type="text" class="form-control file-upload-info" disabled
                                                     placeholder="Upload Image">
@@ -46,22 +47,22 @@
                                         </div>
                                         <div class="material-form">
                                             <div class="form-group">
-                                                <input type="text" required="required" />
+                                                <input name="flink" type="text" required="required" />
                                                 <label for="input" class="control-label">Facebook Link</label><i
                                                     class="bar"></i>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" required="required" />
+                                                <input name="tlink" type="text" required="required" />
                                                 <label for="input" class="control-label">Twitter Link</label><i
                                                     class="bar"></i>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" required="required" />
+                                                <input name="ilink" type="text" required="required" />
                                                 <label for="input" class="control-label">Instagram Link</label><i
                                                     class="bar"></i>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" required="required" />
+                                                <input name="llink" type="text" required="required" />
                                                 <label for="input" class="control-label">Linkedin Link</label><i
                                                     class="bar"></i>
                                             </div>

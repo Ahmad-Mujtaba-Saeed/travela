@@ -25,15 +25,17 @@
                                 <p class="card-description">
                                     Specify the Tour is such as Road Trip Or any Historical Trip
                                 </p>
-                                <form class="forms-sample">
+                                <form class="forms-sample" action="{{ url('/TourManage/addTourCategoryDB') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
                                     <div class="form-group">
                                         <label for="exampleInputName1">Tour Type</label>
-                                        <input type="text" class="form-control" id="exampleInputName1"
-                                            placeholder="ie., Family Tour , Historical Trip , Road Trip">
+                                        <input type="text" name="Type" class="form-control" id="exampleInputName1"
+                                            placeholder="ie., Family Tour , Historical Trip , Road Trip" required>
                                     </div>
                                     <div class="form-group">
                                         <label>File upload</label>
-                                        <input type="file" name="img[]" class="file-upload-default">
+                                        <input type="file" name="img" class="file-upload-default" required>
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" disabled
                                                 placeholder="Upload Image">
@@ -45,9 +47,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputName3">Text Area</label>
-                                        <textarea id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100" rows="2"
-                                            placeholder="Add a description of maximum 100 Characters"></textarea>
+                                        <textarea name="description" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100"
+                                            rows="2" placeholder="Add a description of maximum 100 Characters" required></textarea>
                                     </div>
+                                    @if (session('error'))
+                                        <div class="alert alert-danger">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     <button class="btn btn-light">Cancel</button>
                                 </form>
