@@ -1,9 +1,9 @@
 @push('headlinks')
     <link rel="stylesheet" href="{{ asset('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/js/select.dataTables.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/js/select.dataTables.min.css') }}" />
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
@@ -32,10 +32,45 @@
                                 <h5 class="section-title px-3">Travel Guide</h5>
                                 <h1 class="mb-0">Meet Our Guide</h1>
                             </div>
-                            <div class="row g-4">
-                                @foreach ($travelGuide as $item)
-                                    @include('components/guideCard',['img'=> "storage/{$item->ImgName}" , 'flink'=> $item->flink ,'tlink'=> $item->tlink,'ilink'=> $item->ilink,'llink'=> $item->llink,'Name'=> $item->Name,'Designation'=> 'Designation'])
-                                @endforeach
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Profile Img</th>
+                                                <th>Name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($travelGuide as $item)
+                                                <tr>
+                                                    <td><img src="{{ asset("storage/{$item->ImgName}") }}" /></td>
+                                                    <td>{{ $item->Name }}</td>
+                                                    <td><label class="btn badge badge-warning"><a
+                                                                style="color: white ; text-decoration: none;"
+                                                                href="{{ url('/TestimonialGuides/editTravelGuideDB?ID=' . $item->id . '') }}">Edit</a></label>
+                                                    </td>
+                                                    <td><label class="btn badge badge-danger"><a
+                                                                style="color: white ; text-decoration: none;"
+                                                                href="{{ url('/TestimonialGuides/deleteTravelGuideDB?ID=' . $item->id . '') }}">Delete</a></label>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,9 +83,6 @@
     <!-- container-scroller -->
 
     @push('footerlinks')
-
-
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{{ asset('lib/easing/easing.min.js') }}"></script>

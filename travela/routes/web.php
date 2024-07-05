@@ -26,17 +26,17 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/aboutus',[HomeController::class, 'aboutUs'])->name('aboutUs');
-Route::get('/packages',[ToursController::class, 'Packages'])->name('Packages');
-Route::get('/blogs',[BlogsController::class, 'index'])->name('OurBlogs');
+Route::get('/aboutus', [HomeController::class, 'aboutUs'])->name('aboutUs');
+Route::get('/packages', [ToursController::class, 'Packages'])->name('Packages');
+Route::get('/blogs', [BlogsController::class, 'index'])->name('OurBlogs');
 
 
-Route::get('tour/explore',[ToursController::class, 'index'])->name('All_Tours');
-Route::get('tour/booking',[BookTourController::class, 'index'])->name('Booking');
-Route::get('tour/travelGuide',[TravelGuideController::class, 'index'])->name('TravelGuide');
-Route::get('tour/testimonial',[TestimonialController::class, 'index'])->name('testimonial');
+Route::get('tour/explore', [ToursController::class, 'index'])->name('All_Tours');
+Route::get('tour/booking', [BookTourController::class, 'index'])->name('Booking');
+Route::get('tour/travelGuide', [TravelGuideController::class, 'index'])->name('TravelGuide');
+Route::get('tour/testimonial', [TestimonialController::class, 'index'])->name('testimonial');
 
-Route::get('/contactus',[ContactusController::class, 'index'])->name('contact');
+Route::get('/contactus', [ContactusController::class, 'index'])->name('contact');
 
 
 
@@ -66,6 +66,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/CreateTestimonail', [TestimonialController::class, 'CreateTestimonail'])->name('CreateTestimonail');
         Route::post('/CreateTestimonailDB', [TestimonialController::class, 'create'])->name('CreateTestimonailDB');
         Route::get('/ManageTestimonail', [TestimonialController::class, 'ManageTestimonail'])->name('ManageTestimonail');
+        Route::get('/deleteTestimonailDB', [TestimonialController::class, 'deleteTestimonailDB'])->name('deleteTestimonailDB');
+        Route::get('/editTestimonailDB', [TestimonialController::class, 'editTestimonailDB'])->name('editTestimonailDB');
+        Route::post('/editDBTestimonailDB', [TestimonialController::class, 'editDBTestimonailDB'])->name('editDBTestimonailDB');
     });
 
     // Travel Guide Routes
@@ -73,6 +76,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/CreateTravelGuide', [TravelGuideController::class, 'CreateTravelGuide'])->name('CreateTravelGuide');
         Route::post('/CreateTravelGuideDB', [TravelGuideController::class, 'create'])->name('CreateTravelGuideDB');
         Route::get('/ManageTravelGuide', [TravelGuideController::class, 'ManageTravelGuide'])->name('ManageTravelGuide');
+        Route::get('/deleteTravelGuideDB', [TravelGuideController::class, 'deleteTravelGuideDB'])->name('deleteTravelGuideDB');
+        Route::get('/editTravelGuideDB', [TravelGuideController::class, 'editTravelGuideDB'])->name('editTravelGuideDB');
+        Route::post('/editDBTravelGuideDB', [TravelGuideController::class, 'editDBTravelGuideDB'])->name('editDBTravelGuideDB');
     });
 });
 
@@ -84,8 +90,8 @@ Route::get('/login', [AuthController::class, 'login'])
     ->middleware('auth.redirect') // Apply middleware here
     ->name('login');
 // Route::post('/registerDB',[AuthController::class,'registerDB'])->name('registerDB');
-Route::post('/loginDB',[AuthController::class,'loginDB'])->name('loginDB');
-Route::post('/logout', [AuthController::class,'logout'])->name('logout');
+Route::post('/loginDB', [AuthController::class, 'loginDB'])->name('loginDB');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::fallback(function () {

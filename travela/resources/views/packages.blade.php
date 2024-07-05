@@ -28,6 +28,7 @@
         @foreach ($tourPackages as $item)
             @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,'img' => "storage/{$item->ImgName}" , 'Location' => $item->Location ,'Days'=> "{$item->Days} Days" ,'Cost' => $item->Cost, 'Description' => $item->ShortDescription , 'Stars' => $item->Rating])
         @endforeach
+        {{ $tourPackages->links() }}
         </div>
     </div>
 </div>

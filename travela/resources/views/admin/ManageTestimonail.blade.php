@@ -1,9 +1,9 @@
 @push('headlinks')
     <link rel="stylesheet" href="{{ asset('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/js/select.dataTables.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/js/select.dataTables.min.css') }}" />
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
@@ -32,10 +32,51 @@
                                 <h5 class="section-title px-3">Testimonial</h5>
                                 <h1 class="mb-0">Our Clients Say!!!</h1>
                             </div>
-                            <div class="row m-0 p-0 g-4">
-                            @foreach ($testimonials as $item)
-                                @include('components/testimonialCard',['extra_class' => 'col-12 col-md-6 col-lg-4' , 'img'=> "storage/{$item->ImgName}", 'Paragraph' => $item->Comment ,'Name' => $item->Name ,'Location' => $item->Location ,'Stars' => $item->Rating])
-                            @endforeach
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Profile Img</th>
+                                                <th>Name</th>
+                                                <th>Location</th>
+                                                <th>Comment</th>
+                                                <th>Rating</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($testimonials as $item)
+                                                <tr>
+                                                    <td><img src="{{ asset("storage/{$item->ImgName}") }}" /></td>
+                                                    <td>{{ $item->Name }}</td>
+                                                    <td>{{ $item->Location }}</td>
+                                                    <td>{{ \Illuminate\Support\Str::limit($item->Comment, 40) }}</td>
+                                                    <td>{{ $item->Rating }}</td>
+                                                    <td><label class="btn badge badge-warning"><a
+                                                                style="color: white ; text-decoration: none;"
+                                                                href="{{ url('/TestimonialGuides/editTestimonailDB?ID=' . $item->id . '') }}">Edit</a></label>
+                                                    </td>
+                                                    <td><label class="btn badge badge-danger"><a
+                                                                style="color: white ; text-decoration: none;"
+                                                                href="{{ url('/TestimonialGuides/deleteTestimonailDB?ID=' . $item->id . '') }}">Delete</a></label>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,9 +89,6 @@
     <!-- container-scroller -->
 
     @push('footerlinks')
-
-
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{{ asset('lib/easing/easing.min.js') }}"></script>

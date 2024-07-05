@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TourGuide;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class TravelGuideController extends Controller
@@ -16,16 +17,18 @@ class TravelGuideController extends Controller
      */
     public function index()
     {
-        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
-        return view('travelGuide',compact('Data'));
+        $Data = User::select('name', 'email', 'Ph_Num', 'home_address', 'extraPh_Num')->first();
+        return view('travelGuide', compact('Data'));
     }
 
-    public function CreateTravelGuide(){
+    public function CreateTravelGuide()
+    {
         return view('admin/CreateTravelGuide');
     }
-    public function ManageTravelGuide(){
+    public function ManageTravelGuide()
+    {
         $travelGuide = TourGuide::all();
-        return view('admin/ManageTravelGuide',compact('travelGuide'));
+        return view('admin/ManageTravelGuide', compact('travelGuide'));
     }
 
     /**
@@ -35,7 +38,7 @@ class TravelGuideController extends Controller
      */
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'Name' => 'required|string',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'flink' => 'required|string',
@@ -43,7 +46,7 @@ class TravelGuideController extends Controller
             'ilink' => 'required|string',
             'llink' => 'required|string',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->with('error', $validator->errors());
         }
         if ($request->hasFile('img')) {
@@ -58,11 +61,27 @@ class TravelGuideController extends Controller
             'ilink' => $request->input('ilink'),
             'llink' => $request->input('llink'),
         ]);
-        if($testimonial){
+        if ($testimonial) {
             return redirect()->back()->with('success', 'New Travel Guide added successfully!');
-        }
-        else{
+        } else {
             return redirect()->back()->with('error', 'Failed to add Travel Guide!');
+        }
+    }
+
+    public function deleteTravelGuideDB(Request $request)
+    {
+        $ID = $request->query('ID');
+        $TourGuides = TourGuide::find($ID);
+        $imgPath = $TourGuides->ImgName;
+        $deleted = Storage::disk('public')->delete($imgPath);
+        if ($deleted) {
+            if ($TourGuides->delete()) {
+                return redirect()->back()->with('success', 'successfully deleted TourGuide!');
+            } else {
+                return redirect()->back()->with('error', 'Failed to delete TourGuide!');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Failed to delete TourGuide!');
         }
     }
 

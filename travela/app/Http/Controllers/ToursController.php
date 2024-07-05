@@ -41,7 +41,7 @@ class ToursController extends Controller
     }
     public function Packages()
     {
-        $tourPackages = TourPackage::all();
+        $tourPackages = TourPackage::paginate(10);
         $Data = User::select('name', 'email', 'Ph_Num', 'home_address', 'extraPh_Num')->first();
         return view('packages', compact('Data', 'tourPackages'));
     }

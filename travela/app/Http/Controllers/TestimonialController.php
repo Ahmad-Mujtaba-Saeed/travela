@@ -6,6 +6,7 @@ use App\Models\Testimonail;
 use App\Models\TourGuide;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class TestimonialController extends Controller
@@ -76,9 +77,22 @@ class TestimonialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function deleteTestimonailDB(Request $request)
     {
-        //
+        $ID = $request->query('ID');
+        $testimonial = Testimonail::find($ID);
+        $imgPath = $testimonial->ImgName;
+        $deleted = Storage::disk('public')->delete($imgPath);
+        if($deleted){
+        if ($testimonial->delete()) {
+            return redirect()->back()->with('success', 'successfully deleted Testimonial!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to delete Testimonial!');
+        }
+    }
+    else{
+        return redirect()->back()->with('error', 'Failed to delete Testimonial!');
+    }
     }
 
     /**
@@ -123,6 +137,6 @@ class TestimonialController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }
