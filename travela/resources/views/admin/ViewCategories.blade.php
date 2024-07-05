@@ -36,10 +36,20 @@
                             </div>
                             <div class="tab-class text-center">
                                 <div class="tab-content">
+                                    @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
                                     <div id="NationalTab-1" class="tab-pane fade show p-0 active">
                                         <div class="row g-4">
                                             @foreach ($TourCategory as $item)
-                                                @include('components/TourCardCategory',['img' => "storage/{$item->ImgName}" ,'TourType' => $item->Type , 'places','View All Place' , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>'    ])
+                                                @include('components/TourCardCategory',['img' => "storage/{$item->ImgName}" ,'TourType' => $item->Type , 'places','View All Place' , 'delete' => '<a href="'.url("/TourManage/deleteTourCategoryDB?ID=$item->id").'" class="my-auto"><img src="' . asset("img/bin.png") . '" width="20px"/></a>', 'edit' => '<a href="'.url("/TourManage/editTourCategoryDB?ID=$item->id").'" class="my-auto ms-5"><img src="' . asset("img/edit.png") . '" width="20px"/></a>'    ])
                                             @endforeach
                                         </div>
                                     </div>

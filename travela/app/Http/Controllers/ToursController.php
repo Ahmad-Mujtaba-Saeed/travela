@@ -11,41 +11,48 @@ use Validator;
 
 class ToursController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $TourCategory = TourCategory::all();
-        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
-        return view('Tour',compact('Data','TourCategory'));
+        $Data = User::select('name', 'email', 'Ph_Num', 'home_address', 'extraPh_Num')->first();
+        return view('Tour', compact('Data', 'TourCategory'));
     }
-    public function addTourCategory(){
+    public function addTourCategory()
+    {
         return view('admin/addCategory');
     }
-    public function ViewCategories(){
+    public function ViewCategories()
+    {
         $TourCategory = TourCategory::all();
-        
-        return view('admin/ViewCategories',compact('TourCategory'));
+
+        return view('admin/ViewCategories', compact('TourCategory'));
     }
-    public function CreatePackage(){
+    public function CreatePackage()
+    {
         $TourCategory = TourCategory::all();
-        return view('admin/CreatePackage',compact('TourCategory'));
+        return view('admin/CreatePackage', compact('TourCategory'));
     }
-    public function ViewPackages(){
+    public function ViewPackages()
+    {
         $tourPackages = TourPackage::all();
-        return view('admin/ViewPackages',compact('tourPackages'));
+        return view('admin/ViewPackages', compact('tourPackages'));
     }
-    public function Packages(){
+    public function Packages()
+    {
         $tourPackages = TourPackage::all();
-        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
-        return view('packages',compact('Data','tourPackages'));
+        $Data = User::select('name', 'email', 'Ph_Num', 'home_address', 'extraPh_Num')->first();
+        return view('packages', compact('Data', 'tourPackages'));
     }
 
 
-    public function addTourCategoryDB(Request $request){
-        $validator = Validator::make($request->all(),[
+    public function addTourCategoryDB(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'Type' => 'required|string|max:100',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string|max:100',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             $response = [
                 'success' => false,
                 'message' => $validator->errors(),
@@ -61,19 +68,73 @@ class ToursController extends Controller
             'ImgName' => $filePath,
             'description' => $request->input('description'),
         ]);
-        if($tourCategory){
+        if ($tourCategory) {
             return redirect()->back()->with('success', 'Tour Category added successfully!');
-        }
-        else{
+        } else {
             return redirect()->back()->with('error', 'Failed to add Tour Category!');
+        }
+    }
+    public function deleteTourCategoryDB(Request $request)
+    {
+        $ID = $request->query('ID');
+        $category = TourCategory::find($ID);
+        if ($category->delete()) {
+            return redirect()->back()->with('success', 'successfully deleted Category!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to delete Category!');
+        }
+    }
+    public function editTourCategoryDB(Request $request)
+    {
+        $ID = $request->query('ID');
+        $category = TourCategory::find($ID);
+    
+        if ($category) {
+            return redirect()->route('admin.addCategory')->with('category', $category);
+        } else {
+            return redirect()->back()->with('error', 'Failed to edit Category!');
+        }
+    }
+    public function editDBTourCategoryDB(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'Type' => 'required|string|max:100',
+            'description' => 'required|string|max:100',
+        ]);
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'message' => $validator->errors(),
+            ];
+            return $response;
+        }
+        $ID = $request->input('id');
+
+        $category = TourCategory::find($ID);
+
+        if ($category) {
+            if ($request->hasFile('img')) {
+                $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
+                $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
+                $category->ImgName = $filePath;
+            }
+        $category->Type = $request->input('Type');
+        $category->description = $request->input('description');
+
+        $category->save();
+
+        return redirect()->route('admin.addCategory')->with('success', 'Category updated successfully!');
+    } else {
+            return redirect()->back()->with('error', 'Failed to Update Tour Category!');
         }
     }
 
 
 
 
-    public function CreatePackageDB(Request $request){
-        $validator = Validator::make($request->all(),[
+    public function CreatePackageDB(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'Location' => 'required|string|max:100',
             'Cost' => 'required',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -83,7 +144,7 @@ class ToursController extends Controller
             'DetailedDescription' => 'required|',
             'Rating' => 'required'
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             $response = [
                 'success' => false,
                 'message' => $validator->errors(),
@@ -98,16 +159,15 @@ class ToursController extends Controller
             'Location' => $request->input('Location'),
             'Cost' => $request->input('Cost'),
             'ImgName' => $filePath,
-            'CategoryID' => (int)$request->input('CategoryID'),
+            'CategoryID' => (int) $request->input('CategoryID'),
             'Days' => $request->input('Days'),
             'ShortDescription' => $request->input('ShortDescription'),
             'DetailedDescription' => $request->input('DetailedDescription'),
             'Rating' => $request->input('Rating'),
         ]);
-        if($tourPackage){
+        if ($tourPackage) {
             return redirect()->back()->with('success', 'New Package created successfully!');
-        }
-        else{
+        } else {
             return redirect()->back()->with('error', 'Failed to create new package!');
         }
     }

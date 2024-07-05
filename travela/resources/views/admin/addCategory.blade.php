@@ -21,23 +21,32 @@
                     <div class="col-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
+                                @if (session('category'))
+                                    <?php $category = session('category'); ?>
+                                @endif
+
                                 <h4 class="card-title">Add Tour Category</h4>
                                 <p class="card-description">
                                     Specify the Tour is such as Road Trip Or any Historical Trip
                                 </p>
-                                <form class="forms-sample" action="{{ url('/TourManage/addTourCategoryDB') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form class="forms-sample"
+                                    action="{{ isset($category) ? url('/TourManage/editDBTourCategoryDB') : url('/TourManage/addTourCategoryDB') }}"
+                                    method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <label for="exampleInputName1">Tour Type</label>
                                         <input type="text" name="Type" class="form-control" id="exampleInputName1"
-                                            placeholder="ie., Family Tour , Historical Trip , Road Trip" required>
+                                            placeholder="ie., Family Tour , Historical Trip , Road Trip"
+                                            value="{{ $category->Type ?? '' }}" required>
                                     </div>
+                                    <input name="id" class="d-none" value="{{ $category->id ?? '' }}">
                                     <div class="form-group">
                                         <label>File upload</label>
-                                        <input type="file" name="img" class="file-upload-default" required>
+                                        <input type="file" name="img" class="file-upload-default"
+                                            {{ isset($category) ? '' : 'required' }}>
                                         <div class="input-group col-xs-12">
-                                            <input type="text" class="form-control file-upload-info" disabled
+                                            <input type="text" value="{{ $category->ImgName ?? '' }}"
+                                                class="form-control file-upload-info" disabled
                                                 placeholder="Upload Image">
                                             <span class="input-group-append">
                                                 <button class="file-upload-browse btn btn-primary"
@@ -48,7 +57,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputName3">Text Area</label>
                                         <textarea name="description" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100"
-                                            rows="2" placeholder="Add a description of maximum 100 Characters" required></textarea>
+                                            rows="2" placeholder="Add a description of maximum 100 Characters" required> {{ $category->description ?? '' }} </textarea>
                                     </div>
                                     @if (session('error'))
                                         <div class="alert alert-danger">

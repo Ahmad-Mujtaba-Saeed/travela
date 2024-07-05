@@ -46,9 +46,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Tours Management Routes
     Route::prefix('/TourManage')->group(function () {
-        Route::get('/addTourCategory', [ToursController::class, 'addTourCategory'])->name('addTourCategory');
-        Route::post('/addTourCategoryDB', [ToursController::class, 'addTourCategoryDB'])->name('addTourCategoryDB');
+        Route::get('/addTourCategory', [ToursController::class, 'addTourCategory'])->name('admin.addCategory');
         Route::get('/ViewCategories', [ToursController::class, 'ViewCategories'])->name('ViewCategories');
+        Route::post('/addTourCategoryDB', [ToursController::class, 'addTourCategoryDB'])->name('addTourCategoryDB');
+        Route::get('/deleteTourCategoryDB', [ToursController::class, 'deleteTourCategoryDB'])->name('deleteTourCategoryDB');
+        Route::get('/editTourCategoryDB', [ToursController::class, 'editTourCategoryDB'])->name('editTourCategoryDB');
+        Route::post('/editDBTourCategoryDB', [ToursController::class, 'editDBTourCategoryDB'])->name('editDBTourCategoryDB');
+
         Route::get('/CreatePackage', [ToursController::class, 'CreatePackage'])->name('CreatePackage');
         Route::post('/CreatePackageDB', [ToursController::class, 'CreatePackageDB'])->name('CreatePackageDB');
         Route::get('/ViewPackages', [ToursController::class, 'ViewPackages'])->name('ViewPackages');
