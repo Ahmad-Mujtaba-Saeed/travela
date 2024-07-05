@@ -8,6 +8,8 @@ use App\Models\User;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Support\Facades\Storage;
+
 
 class ToursController extends Controller
 {
@@ -78,11 +80,18 @@ class ToursController extends Controller
     {
         $ID = $request->query('ID');
         $category = TourCategory::find($ID);
+        $imgPath = $category->ImgName;
+        $deleted = Storage::disk('public')->delete($imgPath);
+        if($deleted){
         if ($category->delete()) {
             return redirect()->back()->with('success', 'successfully deleted Category!');
         } else {
             return redirect()->back()->with('error', 'Failed to delete Category!');
         }
+    }
+    else{
+        return redirect()->back()->with('error', 'Failed to delete Package!');
+    }
     }
     public function editTourCategoryDB(Request $request)
     {
@@ -114,6 +123,15 @@ class ToursController extends Controller
 
         if ($category) {
             if ($request->hasFile('img')) {
+                $prevImgPath = $request->input('ImgName');
+                if (isset($prevImgPath)) {
+                    $deleted = Storage::disk('public')->delete($prevImgPath);
+                    if ($deleted) {
+                        \Log::error('Deleted previous image');
+                    } else {
+                        \Log::error('Failed to delete previous image');
+                    }
+                }
                 $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
                 $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
                 $category->ImgName = $filePath;
@@ -152,6 +170,7 @@ class ToursController extends Controller
             return $response;
         }
         if ($request->hasFile('img')) {
+
             $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
             $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
         }
@@ -171,5 +190,83 @@ class ToursController extends Controller
             return redirect()->back()->with('error', 'Failed to create new package!');
         }
     }
+    public function deletePackageDB(Request $request){
+        $ID = $request->query('ID');
+        $Package = TourPackage::find($ID);
+        $imgPath = $Package->ImgName;
+        $deleted = Storage::disk('public')->delete($imgPath);
+        if($deleted){
+        if ($Package->delete()) {
+            return redirect()->back()->with('success', 'successfully deleted Package!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to delete Package!');
+        }
+        }
+        else{
+            return redirect()->back()->with('error', 'Failed to delete Package!');
+        }
+    }
+    public function editPackageDB(Request $request)
+    {
+        $ID = $request->query('ID');
+        $Package = TourPackage::find($ID);
+    
+        if ($Package) {
+            return redirect()->route('admin.createPackage')->with('package', $Package);
+        } else {
+            return redirect()->back()->with('error', 'Failed to edit Category!');
+        }
+    }
+    public function editDBPackageDB(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'Location' => 'required|string|max:100',
+            'Cost' => 'required',
+            'CategoryID' => 'required',
+            'Days' => 'required|integer',
+            'ShortDescription' => 'required',
+            'DetailedDescription' => 'required',
+            'Rating' => 'required'
+        ]);
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'message' => $validator->errors(),
+            ];
+            return $response;
+        }
+        $ID = $request->input('id');
 
+        $package = TourPackage::find($ID);
+
+        if ($package) {
+            if ($request->hasFile('img')) {
+                $prevImgPath = $request->input('ImgName');
+                if (isset($prevImgPath)) {
+                    $deleted = Storage::disk('public')->delete($prevImgPath);
+                    if ($deleted) {
+                        \Log::error('Deleted previous image');
+                    } else {
+                        \Log::error('Failed to delete previous image');
+                    }
+                }
+                $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
+                $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
+                $package->ImgName = $filePath;
+            }
+        $package->Location = $request->input('Location');
+        $package->Cost = $request->input('Cost');
+        $package->CategoryID = (int) $request->input('CategoryID');
+        $package->Days = $request->input('Days');
+        $package->ShortDescription = $request->input('ShortDescription');
+        $package->DetailedDescription  = $request->input('DetailedDescription');
+        $package->Rating = $request->input('Rating');
+
+        $package->save();
+
+        return redirect()->route('admin.createPackage')->with('success', 'Package updated successfully!');
+    }else {
+            return redirect()->back()->with('error', 'Failed to update package!');
+        }
+    }
 }

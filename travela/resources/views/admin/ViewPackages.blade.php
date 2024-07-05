@@ -35,9 +35,19 @@
                                 <h5 class="section-title px-3">Packages</h5>
                                 <h1 class="mb-0">Awesome Packages</h1>
                             </div>
+                            @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                             <div class="row m-0 p-0 g-4">
                                 @foreach ($tourPackages as $item)
-                                    @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => "storage/{$item->ImgName}" , 'Location' => $item->Location ,'Days'=> "{$item->Days} Days" ,'Cost' => $item->Cost, 'Description' => $item->ShortDescription , 'Stars' => $item->Rating , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>' , 'edit' => '<img src="' . asset("img/edit.png") . '" width="20px"/>' , 'deleteURL' => '/delete/3' , 'editURL' => '/edit/3' ])
+                                    @include('components/packageCard',['extra_class' => 'col-12 col-md-6 col-lg-4' ,  'img' => "storage/{$item->ImgName}" , 'Location' => $item->Location ,'Days'=> "{$item->Days} Days" ,'Cost' => $item->Cost, 'Description' => $item->ShortDescription , 'Stars' => $item->Rating , 'delete' => '<img src="' . asset("img/bin.png") . '" width="20px"/>' , 'edit' => '<img src="' . asset("img/edit.png") . '" width="20px"/>' , 'deleteURL' => '/TourManage/deletePackageDB/?ID='.$item->id.'' , 'editURL' => '/TourManage/editPackageDB/?ID='.$item->id.'' ])
                                 @endforeach
                             </div>
                         </div>

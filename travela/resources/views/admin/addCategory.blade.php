@@ -40,6 +40,8 @@
                                             value="{{ $category->Type ?? '' }}" required>
                                     </div>
                                     <input name="id" class="d-none" value="{{ $category->id ?? '' }}">
+                                    <input name="ImgName" type="text" class="d-none"
+                                    value="{{ $category->ImgName ?? '' }}">
                                     <div class="form-group">
                                         <label>File upload</label>
                                         <input type="file" name="img" class="file-upload-default"

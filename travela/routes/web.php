@@ -53,9 +53,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/editTourCategoryDB', [ToursController::class, 'editTourCategoryDB'])->name('editTourCategoryDB');
         Route::post('/editDBTourCategoryDB', [ToursController::class, 'editDBTourCategoryDB'])->name('editDBTourCategoryDB');
 
-        Route::get('/CreatePackage', [ToursController::class, 'CreatePackage'])->name('CreatePackage');
+        Route::get('/CreatePackage', [ToursController::class, 'CreatePackage'])->name('admin.createPackage');
         Route::post('/CreatePackageDB', [ToursController::class, 'CreatePackageDB'])->name('CreatePackageDB');
         Route::get('/ViewPackages', [ToursController::class, 'ViewPackages'])->name('ViewPackages');
+        Route::get('/deletePackageDB', [ToursController::class, 'deletePackageDB'])->name('deletePackageDB');
+        Route::get('/editPackageDB', [ToursController::class, 'editPackageDB'])->name('editPackageDB');
+        Route::post('/editDBPackageDB', [ToursController::class, 'editDBPackageDB'])->name('editDBPackageDB');
     });
 
     // Testimonial Routes

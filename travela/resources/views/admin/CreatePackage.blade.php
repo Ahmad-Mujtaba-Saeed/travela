@@ -1,8 +1,8 @@
 @push('headlinks')
     <link rel="stylesheet" href="{{ asset('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/js/select.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/select2/select2.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('admin/vendors/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/vendors/jquery-tags-input/jquery.tagsinput.min.css') }}">
 @endpush
 @include('admin/adminCommon/head')
@@ -24,27 +24,38 @@
                     <div class="col-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
+                                @if (session('package'))
+                                    <?php $package = session('package'); ?>
+                                @endif
                                 <h4 class="card-title">Create a new Tour Package</h4>
                                 <p class="card-description">
                                     Explain everything briefly and clear.
                                 </p>
-                                <form class="forms-sample" action="{{url('/TourManage/CreatePackageDB')}}" method="POST" enctype="multipart/form-data">
+                                <form class="forms-sample"
+                                    action="{{ isset($package) ? url('/TourManage/editDBPackageDB') : url('/TourManage/CreatePackageDB') }}"
+                                    method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <label for="exampleInputName1">Tour Location</label>
-                                        <input type="text" name="Location" class="form-control" id="exampleInputName1"
-                                            placeholder="ie., Faislabad , Lahore , Murree">
+                                        <input type="text" name="Location" class="form-control"
+                                            id="exampleInputName1" placeholder="ie., Faislabad , Lahore , Murree"
+                                            value="{{ $package->Location ?? '' }}">
                                     </div>
+                                    <input name="id" class="d-none" value="{{ $package->id ?? '' }}">
+                                    <input name="ImgName" type="text" class="d-none"
+                                        value="{{ $package->ImgName ?? '' }}">
                                     <div class="form-group">
                                         <label>Cost of Tour</label>
-                                        <input name="Cost" type="text" class="form-control" data-inputmask="'alias': 'currency'" />
+                                        <input name="Cost" type="text" value="{{ $package->Cost ?? '00:00' }}"
+                                            class="form-control" data-inputmask="'alias': 'currency'" />
                                     </div>
                                     <div class="form-group">
                                         <label>File upload</label>
-                                        <input type="file" name="img" class="file-upload-default">
+                                        <input type="file" name="img" class="file-upload-default"
+                                            {{ isset($package) ? '' : 'required' }}>
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" disabled
-                                                placeholder="Upload Image">
+                                                placeholder="Upload Image" value="{{ $package->ImgName ?? '' }}">
                                             <span class="input-group-append">
                                                 <button class="file-upload-browse btn btn-primary"
                                                     type="button">Upload</button>
@@ -53,50 +64,57 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-group">
-                                          <label>Select Category For this Package</label>
-                                          <select name="CategoryID" class="js-example-basic-single w-100">
-                                            @foreach ($TourCategory as $item)
-                                            <option value="{{$item->id}}">{{$item->Type}}</option>
-                                            @endforeach
-                                          </select>
+                                            <label>Select Category For this Package</label>
+                                            <select name="CategoryID" class="js-example-basic-single w-100">
+                                                @foreach ($TourCategory as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        {{ isset($package) && $item->id == $package->CategoryID ? 'selected' : '' }}>
+                                                        {{ $item->Type }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputName1">Days of Tour</label>
-                                        <input name="Days" type="number" class="form-control" id="exampleInputName1"
+                                        <input name="Days" type="number" value="{{ $package->Days ?? '' }}"
+                                            class="form-control" id="exampleInputName1"
                                             placeholder="Number of Days of Tour">
                                     </div>
                                     <div class="form-group">
                                         <label>Select Rating for this Package</label>
                                         <select name="Rating" class="js-example-basic-single w-100">
-                                          <option value="1">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
+                                            @php
+                                                $collection = [1, 2, 3, 4, 5];
+                                            @endphp
+                                            @foreach ($collection as $item)
+                                                <option value="{{ $item }}"
+                                                    {{ isset($package) && $item == $package->Rating ? 'selected' : '' }}>
+                                                    {{ $item }}
+                                                </option>
+                                            @endforeach
                                         </select>
-                                      </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="exampleInputName3">Short Description</label>
-                                        <textarea name="ShortDescription" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="300" rows="2"
-                                            placeholder="Short Description of Tour of maximum 500 Characters"></textarea>
+                                        <textarea name="ShortDescription" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="300"
+                                            rows="2" placeholder="Short Description of Tour of maximum 500 Characters">{{ $package->ShortDescription ?? null }}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="tinyMceExample">Detailed Description</label>
                                         <textarea name="DetailedDescription" id='tinyMceExample'>
-                                        Edit your content here...
+                                            {{ $package->DetailedDescription ?? 'Edit your content here...' }}
                                     </textarea>
                                     </div>
                                     @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
+                                        <div class="alert alert-danger">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     <button class="btn btn-light">Cancel</button>
                                 </form>
