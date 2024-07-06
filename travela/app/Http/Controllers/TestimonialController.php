@@ -95,6 +95,63 @@ class TestimonialController extends Controller
     }
     }
 
+    public function editTestimonailDB(Request $request)
+    {
+        $ID = $request->query('ID');
+        $Testimonail = Testimonail::find($ID);
+    
+        if ($Testimonail) {
+            return redirect()->route('CreateTestimonail')->with('Testimonail', $Testimonail);
+        } else {
+            return redirect()->back()->with('error', 'Failed to edit Testimonail!');
+        }
+    }
+
+    public function editDBTestimonailDB(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'Comment' => 'required|string|max:100',
+            'Name' => 'required|string|max:100',
+        ]);
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'message' => $validator->errors(),
+            ];
+            return $response;
+        }
+        $ID = $request->input('id');
+
+        $Testimonail = Testimonail::find($ID);
+
+        if ($Testimonail) {
+            if ($request->hasFile('img')) {
+                $prevImgPath = $request->input('ImgName');
+                if (isset($prevImgPath)) {
+                    $deleted = Storage::disk('public')->delete($prevImgPath);
+                    if ($deleted) {
+                        \Log::error('Deleted previous image');
+                    } else {
+                        \Log::error('Failed to delete previous image');
+                    }
+                }
+                $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
+                $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
+                $Testimonail->ImgName = $filePath;
+            }
+        $Testimonail->Name = $request->input('Name');
+        $Testimonail->Comment = $request->input('Comment');
+        $Testimonail->Location = $request->input('Location');
+        $Testimonail->Rating = $request->input('Rating');
+
+        $Testimonail->save();
+
+        return redirect()->route('CreateTestimonail')->with('success', 'Testimonial updated successfully!');
+    } else {
+            return redirect()->back()->with('error', 'Failed to Update Tour Testimonial!');
+        }
+    }
+
     /**
      * Display the specified resource.
      *

@@ -85,6 +85,64 @@ class TravelGuideController extends Controller
         }
     }
 
+    public function editTravelGuideDB(Request $request)
+    {
+        $ID = $request->query('ID');
+        $TourGuide = TourGuide::find($ID);
+
+        if ($TourGuide) {
+            return redirect()->route('CreateTravelGuide')->with('TourGuide', $TourGuide);
+        } else {
+            return redirect()->back()->with('error', 'Failed to edit TourGuide!');
+        }
+    }
+    public function editDBTravelGuideDB(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'flink' => 'required|string',
+            'Name' => 'required|string|max:100',
+        ]);
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'message' => $validator->errors(),
+            ];
+            return $response;
+        }
+        $ID = $request->input('id');
+
+        $TourGuide = TourGuide::find($ID);
+
+        if ($TourGuide) {
+            if ($request->hasFile('img')) {
+                $prevImgPath = $request->input('ImgName');
+                if (isset($prevImgPath)) {
+                    $deleted = Storage::disk('public')->delete($prevImgPath);
+                    if ($deleted) {
+                        \Log::error('Deleted previous image');
+                    } else {
+                        \Log::error('Failed to delete previous image');
+                    }
+                }
+                $fileName = time() . '_' . $request->file('img')->getClientOriginalName();
+                $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
+                $TourGuide->ImgName = $filePath;
+            }
+            $TourGuide->Name = $request->input('Name');
+            $TourGuide->flink = $request->input('flink');
+            $TourGuide->tlink = $request->input('tlink');
+            $TourGuide->ilink = $request->input('ilink');
+            $TourGuide->llink = $request->input('llink');
+
+            $TourGuide->save();
+
+            return redirect()->route('CreateTravelGuide')->with('success', 'Testimonial updated successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to Update Tour Testimonial!');
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
