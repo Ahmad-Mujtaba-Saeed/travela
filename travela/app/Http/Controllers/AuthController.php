@@ -31,7 +31,7 @@ class AuthController extends Controller
             ];
             return response()->json($response, 401);
         }
-    
+        
         $data = $validator->validated();
         $data['password'] = Hash::make($data['password']);
     

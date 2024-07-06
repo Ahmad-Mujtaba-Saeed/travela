@@ -8,6 +8,7 @@
             </div>
         </div>
         <div class="national-plus-icon">
+            {{-- '.url("/packages?ID=$ID").' --}}
             {!! $delete ?? '<a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>' !!}
             {!! $edit ?? '' !!}
         </div>

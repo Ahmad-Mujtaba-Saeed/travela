@@ -124,7 +124,7 @@
                 </div>
                 <div class="packages-carousel owl-carousel">
                     @foreach ($tourPackages as $item)
-                        @include('components/packageCard',['img' => "storage/{$item->ImgName}" , 'Location' => $item->Location ,'Days'=> "{$item->Days} Days" ,'Cost' => $item->Cost, 'Description' => $item->ShortDescription , 'Stars' => $item->Rating])
+                        @include('components/packageCard',['img' => "storage/{$item->ImgName}" , 'Location' => $item->Location ,'Days'=> "{$item->Days} Days" ,'Cost' => $item->Cost, 'Description' => $item->ShortDescription , 'Stars' => $item->Rating ,'ID' => $item->id])
                     @endforeach
                 </div>
             </div>

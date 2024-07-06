@@ -16,8 +16,7 @@ class ToursController extends Controller
     public function index()
     {
         $TourCategory = TourCategory::all();
-        $Data = User::select('name', 'email', 'Ph_Num', 'home_address', 'extraPh_Num')->first();
-        return view('Tour', compact('Data', 'TourCategory'));
+        return view('Tour', compact('TourCategory'));
     }
     public function addTourCategory()
     {
@@ -42,8 +41,7 @@ class ToursController extends Controller
     public function Packages()
     {
         $tourPackages = TourPackage::paginate(10);
-        $Data = User::select('name', 'email', 'Ph_Num', 'home_address', 'extraPh_Num')->first();
-        return view('packages', compact('Data', 'tourPackages'));
+        return view('packages', compact( 'tourPackages'));
     }
 
 

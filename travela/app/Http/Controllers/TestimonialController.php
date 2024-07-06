@@ -19,8 +19,7 @@ class TestimonialController extends Controller
     public function index()
     {
         $testimonials = Testimonail::all();
-        $Data = User::select('name','email','Ph_Num','home_address','extraPh_Num')->first();
-        return view('testimonial',compact('Data','testimonials'));
+        return view('testimonial',compact('testimonials'));
     }
 
     public function CreateTestimonail(){

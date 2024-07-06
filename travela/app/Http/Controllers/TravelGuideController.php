@@ -17,8 +17,7 @@ class TravelGuideController extends Controller
      */
     public function index()
     {
-        $Data = User::select('name', 'email', 'Ph_Num', 'home_address', 'extraPh_Num')->first();
-        return view('travelGuide', compact('Data'));
+        return view('travelGuide');
     }
 
     public function CreateTravelGuide()
