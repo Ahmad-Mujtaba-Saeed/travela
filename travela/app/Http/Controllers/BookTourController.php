@@ -44,8 +44,7 @@ class BookTourController extends Controller
                 'Kids' => $request->input('Kids'),
                 'SpecialRequest' => $request->input('SpecialRequest'),
             ]);
-            DB::commit();
-
+            
             $details = [
                 'title' => 'Custom Tour Request Deal',
                 'Name' => $request->input('Name'),
@@ -53,12 +52,13 @@ class BookTourController extends Controller
                 'Date' => $request->input('Date'),
                 'Package' => $request->input('Package'),
                 'Persons' => $request->input('Persons'),
-                'kids' => $request->input('Kids'),
+                'Kids' => $request->input('Kids'),
                 'SpecialRequest' => $request->input('SpecialRequest'),
             ];
             $email = 'ahmadmujtabap72@gmail.com';
             Mail::to($email)->send(new \App\Mail\CustomDeal($details));
-
+            
+            DB::commit();
             return redirect()->back()->with('success', 'Custom Deal Request Successfully Sent');
         } catch (\Exception $e) {
             // Rollback the transaction in case of error

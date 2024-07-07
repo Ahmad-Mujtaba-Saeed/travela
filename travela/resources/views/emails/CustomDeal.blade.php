@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html>
-    @php
-    use Illuminate\Support\Str;
-    @endphp    
+@php
+use Illuminate\Support\Str;
+@endphp
+
 <head>
     <title>Custom Deal Request</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid white;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: gray;
-            color: white;
-        }
-        td {
-            color: white;
-        }
-    </style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 5px;
+        text-align: left;
+      }
+      </style>
 </head>
 
 <body style="background-color: black; padding: 20px 10px 20px 15px;">
@@ -30,26 +23,36 @@
     <br>
     <br>
     <div style="overflow-x: auto; overflow-y: hidden;">
-        <table>
+        <table style="width:100%">
             <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Date</th>
-                <th>Package</th>
-                <th>Persons</th>
-                <th>Kids</th>
-                <th>Special Request</th>
+              <th>Name:</th>
+              <td>{{ $details['Name'] }}</td>
             </tr>
             <tr>
-                <td>{{ $details['Name'] }}</td>
-                <td>{{ $details['Email'] }}</td>
-                <td>{{ $details['Date'] }}</td>
+              <th>Email:</th>
+              <td>{{ $details['Email'] }}</td>
+            </tr>
+            <tr>
+              <th>Date:</th>
+              <td>{{ $details['Date'] }}</td>
+            </tr>
+            <tr>
+                <th>Package:</th>
                 <td>{{ $details['Package'] }}</td>
+              </tr>
+              <tr>
+                <th>Persons:</th>
                 <td>{{ $details['Persons'] }}</td>
+              </tr>
+              <tr>
+                <th>Kids:</th>
                 <td>{{ $details['Kids'] }}</td>
-                <td>{{ Str::limit($details['SpecialRequest'], 40) }}</td>
-            </tr>
-        </table>
+              </tr>
+              <tr>
+                <th>SpecialRequest:</th>
+                <td>{{ $details['SpecialRequest'] }}</td>
+              </tr>
+          </table>
     </div>
 </body>
 
