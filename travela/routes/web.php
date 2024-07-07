@@ -39,7 +39,7 @@ Route::get('tour/testimonial', [TestimonialController::class, 'index'])->name('t
 Route::get('/contactus', [ContactusController::class, 'index'])->name('contact');
 
 
-
+Route::post('/BookingCustomDeal' , [BookTourController::class, 'customDeal'])->name('customDeal');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

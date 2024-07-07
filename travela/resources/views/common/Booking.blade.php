@@ -11,31 +11,33 @@
                 <a href="#" class="btn btn-light text-primary rounded-pill py-3 px-5 mt-2">Read More</a>
             </div>
             <div class="col-lg-6">
+                
                 <h1 class="text-white mb-3">Book A Tour Deals</h1>
                 <p class="text-white mb-4">Get <span class="text-warning">50% Off</span> On Your First Adventure Trip With Travela. Get More Deal Offers Here.</p>
-                <form>
+                <form action="{{url('/BookingCustomDeal')}}" method="POST">
+                    @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control bg-white border-0" id="name" placeholder="Your Name">
+                                <input type="text" name="Name" class="form-control bg-white border-0" id="name" placeholder="Your Name">
                                 <label for="name">Your Name</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="email" class="form-control bg-white border-0" id="email" placeholder="Your Email">
+                                <input type="email" name="Email" class="form-control bg-white border-0" id="email" placeholder="Your Email">
                                 <label for="email">Your Email</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating date" id="date3" data-target-input="nearest">
-                                <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
-                                <label for="datetime">Date & Time</label>
+                                <input type="text" name="Date" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                                <label for="datetime">Date</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="select1">
+                                <select name="Package" class="form-select bg-white border-0" id="select1">
                                     <option value="1">Package 1</option>
                                     <option value="2">Package 2</option>
                                     <option value="3">Package 3</option>
@@ -45,7 +47,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="SelectPerson">
+                                <select name="Persons" class="form-select bg-white border-0" id="SelectPerson">
                                     <option value="1">Persons 1</option>
                                     <option value="2">Persons 2</option>
                                     <option value="3">Persons 3</option>
@@ -55,22 +57,31 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="CategoriesSelect">
-                                    <option value="1">Kids</option>
+                                <select name="Kids" class="form-select bg-white border-0" id="CategoriesSelect">
                                     <option value="2">1</option>
                                     <option value="3">2</option>
                                     <option value="3">3</option>
                                 </select>
-                                <label for="CategoriesSelect">Categories</label>
+                                <label for="CategoriesSelect">Kids</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                <textarea name="SpecialRequest" class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
                                 <label for="message">Special Request</label>
                             </div>
                         </div>
                         <div class="col-12">
+                            @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                             <button class="btn btn-primary text-white w-100 py-3" type="submit">Book Now</button>
                         </div>
                     </div>
