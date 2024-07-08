@@ -43,6 +43,10 @@ Route::get('/contactus', [ContactusController::class, 'index'])->name('contact')
 
 Route::post('/Newsletter', [Newsletter::class, 'index'])->name('newsletter');
 Route::post('/BookingCustomDeal' , [BookTourController::class, 'customDeal'])->name('customDeal');
+Route::get('/Booking/TourConfirm',[BookTourController::class,'TourConfirm'])->name('TourConfirm');
+
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

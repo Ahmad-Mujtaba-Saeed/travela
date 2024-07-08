@@ -67,12 +67,12 @@
                                       <th>SpecialRequest:</th>
                                       <td>{{ $item['SpecialRequest'] }}</td>
                                     </tr>
-                                    <form action="{{url('Booking/sendDeal')}}" method="POST">
+                                    <form action="{{url('/Booking/sendDeal')}}" method="POST">
                                     @csrf
                                     <tr>
                                         <th>price:</th>
                                         <input name="id" value="{{ $item['id'] }}" hidden />
-                                        <td><input name="Price" class="form-control" placeholder="Enter the ammount" value="{{$item['Price'] ?? ''}}" required/></td>
+                                        <td><input name="Price" class="form-control" placeholder="Enter the ammount" value="{{ $item['Price'] ?? ''}}" required/></td>
                                     </tr>
                                     <tr>
                                         <th>Action:</th>

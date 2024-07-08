@@ -29,7 +29,7 @@ class SendDealBack extends Mailable
      */
     public function build()
     {
-        return $this->subject('Deal Request Cancelled')
+        return $this->subject('Deal Counter Price Details')
                     ->view('emails.SendDealBack');
     }
 }

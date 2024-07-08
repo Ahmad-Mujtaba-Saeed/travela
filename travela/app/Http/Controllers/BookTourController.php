@@ -76,9 +76,22 @@ class BookTourController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to send Request Deal email. Please try again.');
         }
-        
+        return redirect()->back()->with('error', 'Failed to send Request Deal email. Please try again.');
     }
 
+
+    public function TourConfirm(Request $request){
+        $ID = $request->query('ID');
+        $RequestTour = CustomDeal::find($ID);
+        $RequestTour->Accepted = true;
+        $RequestTour->save();
+        if($RequestTour){
+            return view('BookingConfirm');
+        }
+        else{
+            return view('404');
+        }
+    }
 
 
     public function customDeal(Request $request){
