@@ -2,36 +2,45 @@
     <div class="container py-5">
         <div class="row g-5 align-items-center">
             <div class="col-lg-6">
-                <h5 class="section-booking-title pe-3">Booking</h5>
+                <h5 class="section-booking-title pe-3">Custom Booking</h5>
                 <h1 class="text-white mb-4">Online Booking</h1>
-                <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
+                <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime
+                    ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium?
+                    Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
                 </p>
-                <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
+                <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime
+                    ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium?
+                    Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
                 </p>
                 <a href="#" class="btn btn-light text-primary rounded-pill py-3 px-5 mt-2">Read More</a>
             </div>
             <div class="col-lg-6">
-                
-                <h1 class="text-white mb-3">Book A Tour Deals</h1>
-                <p class="text-white mb-4">Get <span class="text-warning">50% Off</span> On Your First Adventure Trip With Travela. Get More Deal Offers Here.</p>
-                <form action="{{url('/BookingCustomDeal')}}" method="POST">
+
+                <h1 class="text-white mb-3">Book A Custom Tour Deal</h1>
+                <p class="text-white mb-4">Get <span class="text-warning">50% Off</span> On Your First Adventure Trip
+                    With Travela. Get More Deal Offers Here.</p>
+                <form action="{{ url('/BookingCustomDeal') }}" method="POST">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" name="Name" class="form-control bg-white border-0" id="name" placeholder="Your Name">
+                                <input type="text" name="Name" class="form-control bg-white border-0"
+                                    id="name" placeholder="Your Name">
                                 <label for="name">Your Name</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="email" name="Email" class="form-control bg-white border-0" id="email" placeholder="Your Email">
+                                <input type="email" name="Email" class="form-control bg-white border-0"
+                                    id="email" placeholder="Your Email">
                                 <label for="email">Your Email</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating date" id="date3" data-target-input="nearest">
-                                <input type="text" name="Date" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                                <input type="text" name="Date" class="form-control bg-white border-0"
+                                    id="datetime" placeholder="Date & Time" data-target="#date3"
+                                    data-toggle="datetimepicker" />
                                 <label for="datetime">Date</label>
                             </div>
                         </div>
@@ -42,7 +51,7 @@
                                     <option value="2">Package 2</option>
                                     <option value="3">Package 3</option>
                                 </select>
-                                <label for="select1">Select Package</label>
+                                <label for="select1">Select Destination</label>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -67,7 +76,8 @@
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea name="SpecialRequest" class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                <textarea name="SpecialRequest" class="form-control bg-white border-0" placeholder="Special Request" id="message"
+                                    style="height: 100px"></textarea>
                                 <label for="message">Special Request</label>
                             </div>
                         </div>

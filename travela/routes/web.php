@@ -83,6 +83,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/editTravelGuideDB', [TravelGuideController::class, 'editTravelGuideDB'])->name('editTravelGuideDB');
         Route::post('/editDBTravelGuideDB', [TravelGuideController::class, 'editDBTravelGuideDB'])->name('editDBTravelGuideDB');
     });
+    Route::prefix('/Booking')->group(function(){
+        Route::get('/CancelDeal',[BookTourController::class, 'cancelRequest'])->name('cancelRequest');
+        Route::get('/BookingRequest',[BookTourController::class,'BookingRequest'])->name('BookingRequest');
+        Route::post('/sendDeal',[BookTourController::class,'SendDealBack'])->name('SendDealBack');
+    });
 });
 
 
