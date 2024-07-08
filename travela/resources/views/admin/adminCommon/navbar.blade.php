@@ -171,5 +171,15 @@
       <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
         <span class="mdi mdi-menu"></span>
       </button>
+      @if (session('error'))
+    <div class="uperhand alert alert-danger" style="position: fixed">
+        {{ session('error') }}
+    </div>
+@endif
+@if (session('success'))
+    <div class="uperhand alert alert-success" style="position: fixed">
+        {{ session('success') }}
+    </div>
+@endif
     </div>
   </nav>

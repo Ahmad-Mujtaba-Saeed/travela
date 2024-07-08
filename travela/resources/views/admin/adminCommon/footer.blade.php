@@ -1,13 +1,4 @@
-@if (session('error'))
-        <div class="uperhand alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="uperhand alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+
 
 <script src="{{asset('admin/vendors/js/vendor.bundle.base.js')}}"></script>
 <script src="{{asset('admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
