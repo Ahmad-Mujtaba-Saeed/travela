@@ -32,16 +32,7 @@
                                 <h5 class="section-title px-3">Testimonial</h5>
                                 <h1 class="mb-0">Our Clients Say!!!</h1>
                             </div>
-                            @if (session('error'))
-                                <div class="alert alert-danger">
-                                    {{ session('error') }}
-                                </div>
-                            @endif
-                            @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
+                            
                             <div class="card-body">
 
                                 <div class="table-responsive">

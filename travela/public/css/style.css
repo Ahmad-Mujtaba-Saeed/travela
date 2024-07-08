@@ -392,6 +392,17 @@
 /*** Carousel Hero Header End ***/
 
 
+
+.uperhand {
+    position: fixed;
+    top: 10px; /* Distance from the top */
+    right: 10px; /* Distance from the right */
+    display: none;
+    z-index: 1000; /* Ensure the overlay is on top */
+    text-align: center;
+}
+
+
 /*** Single Page Hero Header Start ***/
 .bg-breadcrumb {
     background: linear-gradient(rgba(19, 53, 123, 0.5), rgba(19, 53, 123, 0.5)), url(../img/breadcrumb-bg.jpg);

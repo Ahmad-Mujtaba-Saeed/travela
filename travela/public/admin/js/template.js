@@ -1,3 +1,16 @@
+document.addEventListener("DOMContentLoaded", function() {
+  const uperhand = document.querySelector('.uperhand');
+  
+  // Show the overlay
+  uperhand.style.display = 'block';
+  
+  // Hide the overlay after 2 seconds
+  setTimeout(function() {
+      uperhand.style.display = 'none';
+  }, 3000);
+});
+
+
 (function($) {
   'use strict';
   $(function() {

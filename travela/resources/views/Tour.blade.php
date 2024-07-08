@@ -33,7 +33,7 @@
                         <div id="NationalTab-1" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
                                 @foreach ($TourCategory as $item)
-                                @include('components/TourCardCategory',['img' => "storage/{$item->ImgName}" ,'TourType' => $item->Type , 'places','View All Place'])
+                                @include('components/TourCardCategory',['img' => "storage/{$item->ImgName}" ,'TourType' => $item->Type , 'places','View All Place' , 'ID' => $item->id])
                             @endforeach
                             </div>
                         </div>

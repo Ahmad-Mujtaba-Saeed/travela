@@ -61,16 +61,6 @@
                                         <textarea name="description" id="exampleInputName3 maxlength-textarea" class="form-control" maxlength="100"
                                             rows="2" placeholder="Add a description of maximum 100 Characters" required> {{ $category->description ?? '' }} </textarea>
                                     </div>
-                                    @if (session('error'))
-                                        <div class="alert alert-danger">
-                                            {{ session('error') }}
-                                        </div>
-                                    @endif
-                                    @if (session('success'))
-                                        <div class="alert alert-success">
-                                            {{ session('success') }}
-                                        </div>
-                                    @endif
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     <button class="btn btn-light">Cancel</button>
                                 </form>

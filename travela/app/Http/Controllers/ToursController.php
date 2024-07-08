@@ -41,7 +41,7 @@ class ToursController extends Controller
     public function Packages()
     {
         $tourPackages = TourPackage::paginate(10);
-        return view('packages', compact( 'tourPackages'));
+        return view('packages', compact('tourPackages'));
     }
 
 
@@ -80,29 +80,29 @@ class ToursController extends Controller
         $category = TourCategory::find($ID);
         $imgPath = $category->ImgName;
         $deleted = Storage::disk('public')->delete($imgPath);
-        if($deleted){
-        if ($category->delete()) {
-            return redirect()->back()->with('success', 'successfully deleted Category!');
+        if ($deleted) {
+            if ($category->delete()) {
+                return redirect()->back()->with('success', 'successfully deleted Category!');
+            } else {
+                return redirect()->back()->with('error', 'Failed to delete Category!');
+            }
         } else {
-            return redirect()->back()->with('error', 'Failed to delete Category!');
+            return redirect()->back()->with('error', 'Failed to delete Package!');
         }
-    }
-    else{
-        return redirect()->back()->with('error', 'Failed to delete Package!');
-    }
     }
     public function editTourCategoryDB(Request $request)
     {
         $ID = $request->query('ID');
         $category = TourCategory::find($ID);
-    
+
         if ($category) {
             return redirect()->route('admin.addCategory')->with('category', $category);
         } else {
             return redirect()->back()->with('error', 'Failed to edit Category!');
         }
     }
-    public function editDBTourCategoryDB(Request $request){
+    public function editDBTourCategoryDB(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'id' => 'required',
             'Type' => 'required|string|max:100',
@@ -134,18 +134,22 @@ class ToursController extends Controller
                 $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
                 $category->ImgName = $filePath;
             }
-        $category->Type = $request->input('Type');
-        $category->description = $request->input('description');
+            $category->Type = $request->input('Type');
+            $category->description = $request->input('description');
 
-        $category->save();
+            $category->save();
 
-        return redirect()->route('admin.addCategory')->with('success', 'Category updated successfully!');
-    } else {
+            return redirect()->route('admin.addCategory')->with('success', 'Category updated successfully!');
+        } else {
             return redirect()->back()->with('error', 'Failed to Update Tour Category!');
         }
     }
-
-
+    public function CategoryPackages(Request $request)
+    {
+        $id = $request->query('ID');
+        $tourPackages = TourPackage::where('CategoryID', $id)->paginate(10);
+        return view('packages', compact('tourPackages'));
+    }
 
 
     public function CreatePackageDB(Request $request)
@@ -188,19 +192,19 @@ class ToursController extends Controller
             return redirect()->back()->with('error', 'Failed to create new package!');
         }
     }
-    public function deletePackageDB(Request $request){
+    public function deletePackageDB(Request $request)
+    {
         $ID = $request->query('ID');
         $Package = TourPackage::find($ID);
         $imgPath = $Package->ImgName;
         $deleted = Storage::disk('public')->delete($imgPath);
-        if($deleted){
-        if ($Package->delete()) {
-            return redirect()->back()->with('success', 'successfully deleted Package!');
+        if ($deleted) {
+            if ($Package->delete()) {
+                return redirect()->back()->with('success', 'successfully deleted Package!');
+            } else {
+                return redirect()->back()->with('error', 'Failed to delete Package!');
+            }
         } else {
-            return redirect()->back()->with('error', 'Failed to delete Package!');
-        }
-        }
-        else{
             return redirect()->back()->with('error', 'Failed to delete Package!');
         }
     }
@@ -208,14 +212,15 @@ class ToursController extends Controller
     {
         $ID = $request->query('ID');
         $Package = TourPackage::find($ID);
-    
+
         if ($Package) {
             return redirect()->route('admin.createPackage')->with('package', $Package);
         } else {
             return redirect()->back()->with('error', 'Failed to edit Category!');
         }
     }
-    public function editDBPackageDB(Request $request){
+    public function editDBPackageDB(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'id' => 'required',
             'Location' => 'required|string|max:100',
@@ -252,19 +257,27 @@ class ToursController extends Controller
                 $filePath = $request->file('img')->storeAs('uploads/images', $fileName, 'public');
                 $package->ImgName = $filePath;
             }
-        $package->Location = $request->input('Location');
-        $package->Cost = $request->input('Cost');
-        $package->CategoryID = (int) $request->input('CategoryID');
-        $package->Days = $request->input('Days');
-        $package->ShortDescription = $request->input('ShortDescription');
-        $package->DetailedDescription  = $request->input('DetailedDescription');
-        $package->Rating = $request->input('Rating');
+            $package->Location = $request->input('Location');
+            $package->Cost = $request->input('Cost');
+            $package->CategoryID = (int) $request->input('CategoryID');
+            $package->Days = $request->input('Days');
+            $package->ShortDescription = $request->input('ShortDescription');
+            $package->DetailedDescription = $request->input('DetailedDescription');
+            $package->Rating = $request->input('Rating');
 
-        $package->save();
+            $package->save();
 
-        return redirect()->route('admin.createPackage')->with('success', 'Package updated successfully!');
-    }else {
+            return redirect()->route('admin.createPackage')->with('success', 'Package updated successfully!');
+        } else {
             return redirect()->back()->with('error', 'Failed to update package!');
         }
+    }
+
+    public function Readmore(Request $request)
+    {
+        $id = $request->query->get('ID');
+        $data = TourPackage::find($id);
+
+        return view('/Readmore', compact('data'));
     }
 }
