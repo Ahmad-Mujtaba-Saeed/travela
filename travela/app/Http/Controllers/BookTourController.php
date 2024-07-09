@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendDealBack;
 use App\Models\CustomDeal;
+use App\Models\TourPackage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
@@ -16,6 +17,45 @@ class BookTourController extends Controller
     public function index()
     {
         return view('Booking');
+    }
+
+    public function Booknow(Request $request){
+        $ID = $request->query('ID');
+        $tourPackage = TourPackage::find($ID);
+        return view('Booking',compact('tourPackage'));
+    }
+    public function BookingTourPackage(Request $request){
+        $validator = Validator::make($request->all(),[
+            'Name' => 'required|max:100',
+            'Email' => 'required|max:100',
+            'Date' => 'required|max:100',
+            'Package' => 'required|max:100',
+            'Persons' => 'required',
+            'Kids' => 'required',
+            'ID' => 'required'
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->with('error', $validator->errors()->first());
+        }
+        $ID = $request->input('ID');
+        $tourPackage = TourPackage::find($ID);
+        $cleanedValue = str_replace(['$', ' '], '', $tourPackage->Cost);
+        $integerValue = (int) floatval($cleanedValue);
+        $numberOfPersons =  (int) $request->input('Persons');
+        $numberOfKids = (int) $request->input('Kids');
+        $totalCost = ($integerValue * $numberOfPersons) + ($integerValue * ($numberOfKids / 2));
+
+        $customDeal = CustomDeal::create([
+            'Name' => $request->input('Name'),
+            'Email' => $request->input('Email'),
+            'Date' => $request->input('Date'),
+            'Package' => $request->input('Package'),
+            'Persons' => $request->input('Persons'),
+            'Kids' => $request->input('Kids'),
+            'SpecialRequest' => $tourPackage->ShortDescription,
+            'Price' => $totalCost,
+            'Accepted' => true
+        ]);
     }
 
     public function BookingRequest()

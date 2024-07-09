@@ -44,7 +44,9 @@ Route::post('/Contact', [ContactusController::class, 'Contact'])->name('ContactU
 
 Route::post('/Newsletter', [Newsletter::class, 'index'])->name('newsletter');
 Route::post('/BookingCustomDeal' , [BookTourController::class, 'customDeal'])->name('customDeal');
+Route::post('/BookingTourPackage' , [BookTourController::class, 'BookingTourPackage'])->name('BookingTourPackage');
 Route::get('/Booking/TourConfirm',[BookTourController::class,'TourConfirm'])->name('TourConfirm');
+Route::get('/Booknow',[BookTourController::class,'Booknow'])->name('Booknow');
 
 
 
