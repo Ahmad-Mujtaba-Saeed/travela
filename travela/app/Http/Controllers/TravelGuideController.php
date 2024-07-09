@@ -17,7 +17,8 @@ class TravelGuideController extends Controller
      */
     public function index()
     {
-        return view('travelGuide');
+        $travelGuide  = TourGuide::all();
+        return view('travelGuide',compact('travelGuide'));
     }
 
     public function CreateTravelGuide()

@@ -13,19 +13,46 @@ use App\Mail\CancelRequest;
 
 class BookTourController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('Booking');
     }
 
-    public function BookingRequest(){
-        $BookingRequest = CustomDeal::where('Accepted',false)->get();
-        return view('admin.BookingRequests',compact('BookingRequest'));
+    public function BookingRequest()
+    {
+        $BookingRequest = CustomDeal::where('Accepted', false)->get();
+        return view('admin.BookingRequests', compact('BookingRequest'));
     }
-    public function cancelRequest(Request $request){
+    public function Active(Request $request)
+    {
         $ID = $request->query('ID');
         $RequestTour = CustomDeal::find($ID);
-    
-        if($RequestTour){
+        $RequestTour->Status = 'Pending';
+        $RequestTour->save();
+        if ($RequestTour) {
+            return redirect()->back()->with('success', 'Request Activated Successfully');
+        } else {
+            return redirect()->back()->with('success', 'Failed to Activate Request');
+        }
+    }
+    public function Close(Request $request)
+    {
+        $ID = $request->query('ID');
+        $RequestTour = CustomDeal::find($ID);
+        $RequestTour->Status = 'Closed';
+        $RequestTour->save();
+        if ($RequestTour) {
+            return redirect()->back()->with('success', 'Request Closed Successfully');
+        } else {
+            return redirect()->back()->with('success', 'Failed to Close Request');
+        }
+    }
+    public function cancelRequest(Request $request)
+    {
+        $ID = $request->query('ID');
+        $RequestTour = CustomDeal::find($ID);
+
+        if ($RequestTour) {
             $email = $RequestTour->Email;
             $details = [
                 'ID' => $RequestTour->id,
@@ -36,7 +63,7 @@ class BookTourController extends Controller
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', 'Failed to send cancellation email. Please try again.');
             }
-    
+
             $RequestTour->delete();
             return redirect()->back()->with('success', 'Request Deleted Successfully');
         } else {
@@ -44,12 +71,13 @@ class BookTourController extends Controller
         }
     }
 
-    public function SendDealBack(Request $request){
-        $validator = Validator::make($request->all(),[
+    public function SendDealBack(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'id' => 'required',
             'Price' => 'required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->with('error', $validator->errors()->first());
         }
         $ID = $request->input('id');
@@ -80,23 +108,24 @@ class BookTourController extends Controller
     }
 
 
-    public function TourConfirm(Request $request){
+    public function TourConfirm(Request $request)
+    {
         $ID = $request->query('ID');
         $RequestTour = CustomDeal::find($ID);
         $RequestTour->Accepted = true;
         $RequestTour->save();
-        if($RequestTour){
+        if ($RequestTour) {
             return view('BookingConfirm');
-        }
-        else{
+        } else {
             return view('404');
         }
     }
 
 
-    public function customDeal(Request $request){
+    public function customDeal(Request $request)
+    {
 
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'Name' => 'required|string|max:100',
             'Email' => 'required|email',
             'Date' => 'required|string',
@@ -106,7 +135,7 @@ class BookTourController extends Controller
             'SpecialRequest' => 'required|string|max:500',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->with('error', $validator->errors()->first());
         }
 
@@ -122,7 +151,7 @@ class BookTourController extends Controller
                 'Kids' => $request->input('Kids'),
                 'SpecialRequest' => $request->input('SpecialRequest'),
             ]);
-            
+
             $details = [
                 'title' => 'Custom Tour Request Deal',
                 'Name' => $request->input('Name'),
@@ -135,13 +164,13 @@ class BookTourController extends Controller
             ];
             $email = 'ahmadmujtabap72@gmail.com';
             Mail::to($email)->send(new \App\Mail\CustomDeal($details));
-            
+
             DB::commit();
             return redirect()->back()->with('success', 'Custom Deal Request Successfully Sent');
         } catch (\Exception $e) {
             // Rollback the transaction in case of error
             DB::rollBack();
-    
+
             return redirect()->back()->with('error', 'Failed to send Request. Please try again');
         }
     }

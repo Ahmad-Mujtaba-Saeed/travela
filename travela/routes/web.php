@@ -40,6 +40,7 @@ Route::get('tour/travelGuide', [TravelGuideController::class, 'index'])->name('T
 Route::get('tour/testimonial', [TestimonialController::class, 'index'])->name('testimonial');
 
 Route::get('/contactus', [ContactusController::class, 'index'])->name('contact');
+Route::post('/Contact', [ContactusController::class, 'Contact'])->name('ContactUs');
 
 Route::post('/Newsletter', [Newsletter::class, 'index'])->name('newsletter');
 Route::post('/BookingCustomDeal' , [BookTourController::class, 'customDeal'])->name('customDeal');
@@ -91,6 +92,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/CancelDeal',[BookTourController::class, 'cancelRequest'])->name('cancelRequest');
         Route::get('/BookingRequest',[BookTourController::class,'BookingRequest'])->name('BookingRequest');
         Route::post('/sendDeal',[BookTourController::class,'SendDealBack'])->name('SendDealBack');
+        Route::get('/Active',[BookTourController::class,'Active'])->name('Active');
+        Route::get('/Close',[BookTourController::class,'Close'])->name('Close');
     });
 });
 
