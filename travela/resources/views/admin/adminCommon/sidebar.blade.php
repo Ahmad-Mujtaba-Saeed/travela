@@ -74,29 +74,18 @@
         </li>
         <li class="nav-item nav-category">Apps</li>
         <li class="nav-item {{ Request::is('/Booking/BookingRequest') ? 'active' : '' }}">
-            <a class="nav-link" href="{{url('/Booking/BookingRequest')}}">
+            <a class="nav-link" href="{{ url('/Booking/BookingRequest') }}">
                 <i class="menu-icon mdi mdi-email-outline"></i>
                 <span class="menu-title">Requests</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pages/apps/calendar.html">
-                <i class="menu-icon mdi mdi-calendar"></i>
-                <span class="menu-title">Calendar</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pages/apps/todo.html">
+        <li class="nav-item {{ Request::is('/Booking/Destinations') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/Booking/Destinations') }}">
                 <i class="menu-icon mdi mdi-format-list-bulleted"></i>
-                <span class="menu-title">Todo List</span>
+                <span class="menu-title">Destinations</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pages/apps/gallery.html">
-                <i class="menu-icon mdi mdi-file-image-outline"></i>
-                <span class="menu-title">Gallery</span>
-            </a>
-        </li>
+        
         <li class="nav-item nav-category">help</li>
         <li class="nav-item">
             <a class="nav-link" href="https://bootstrapdash.com/demo/star-admin2-pro/docs/documentation.html">

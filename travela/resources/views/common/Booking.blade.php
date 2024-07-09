@@ -50,7 +50,7 @@
                         <div class="col-md-6">
                             <div class="form-floating">
                                 <select {{ isset($tourPackage) ? 'disabled' : '' }} name="Package" class="form-select bg-white border-0" id="select1">
-                                    <option value="{{ $tourPackage->Location ?? 'Destination 1' }}">
+                                    <option  {{ isset($tourPackage) ? 'selected' : '' }}  value="{{ $tourPackage->Location ?? 'Destination 1' }}">
                                         {{ $tourPackage->Location ?? 'Destination 1' }}</option>
                                     <option value="Destination 2">Destination 2</option>
                                     <option value="Destination 3">Destination 3</option>
@@ -106,14 +106,15 @@
                                     ?>
                                     <input hidden type="number" name="initialPrice" id="initialPrice" value="<?php echo $integerValue ?>" />
                                     <input hidden name="ID" id="ID" value="{{$tourPackage->id}}" />
+                                    <input hidden name="Package" id="Package" value="{{$tourPackage->Location}}" />
                                     <input readonly type="text" name="Price" class="form-control bg-white border-0"
                                         id="Price" placeholder="Grand Total" value="{{ $tourPackage->Cost }}">
                                     <label for="Price">Grand Total</label>
-                                @else
+                                    @else
                                     <textarea name="SpecialRequest" class="form-control bg-white border-0" placeholder="Special Request" id="message"
                                         style="height: 100px"></textarea>
                                     <label for="message">Special Request</label>
-                                @endif
+                                    @endif
                             </div>
                         </div>
                         <div class="col-12">
