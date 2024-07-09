@@ -49,6 +49,8 @@ Route::get('/Booking/TourConfirm',[BookTourController::class,'TourConfirm'])->na
 Route::get('/Booknow',[BookTourController::class,'Booknow'])->name('Booknow');
 
 
+Route::post('/Search',[ToursController::class,'Search'])->name('Search');
+
 
 
 Route::middleware(['auth'])->group(function () {
