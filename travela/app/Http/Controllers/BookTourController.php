@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PackageSubscibed;
 use App\Mail\SendDealBack;
 use App\Models\CustomDeal;
 use App\Models\TourPackage;
@@ -45,6 +46,8 @@ class BookTourController extends Controller
         $numberOfKids = (int) $request->input('Kids');
         $totalCost = ($integerValue * $numberOfPersons) + ($integerValue * ($numberOfKids / 2));
 
+        DB::beginTransaction();
+        try{
         $customDeal = CustomDeal::create([
             'Name' => $request->input('Name'),
             'Email' => $request->input('Email'),
@@ -56,7 +59,22 @@ class BookTourController extends Controller
             'Price' => $totalCost,
             'Accepted' => true
         ]);
+        $details = [
+            'title' => 'package Booked Successfully'
+        ];
+        try {
+            $email = $request->input('Email');
+            Mail::to($email)->send(new PackageSubscibed($details));
+            DB::commit();
+            return redirect()->back()->with('success', 'Booking Done! We will contact you Soon.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to send Request Deal email. Please try again.');
+        }
     }
+    catch (\Exception $e){
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Failed to send Request Deal email. Please try again.');
+    }}
 
     public function BookingRequest()
     {
