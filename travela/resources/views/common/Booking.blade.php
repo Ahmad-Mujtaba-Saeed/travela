@@ -49,21 +49,33 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
+                                @if ( isset($tourPackage))
                                 <select {{ isset($tourPackage) ? 'disabled' : '' }} name="Package" class="form-select bg-white border-0" id="select1">
                                     <option  {{ isset($tourPackage) ? 'selected' : '' }}  value="{{ $tourPackage->Location ?? 'Destination 1' }}">
                                         {{ $tourPackage->Location ?? 'Destination 1' }}</option>
                                     <option value="Destination 2">Destination 2</option>
                                     <option value="Destination 3">Destination 3</option>
                                 </select>
+                                <label for="select1">Selected package</label>
+                                @else
+                                <select name="Package" class="form-select bg-white border-0" id="select1">
+                                    @foreach ($cities as $item)
+                                        <option value="{{$item['name']}}">{{$item['name'] }}</option>
+                                    @endforeach
+                                </select>
                                 <label for="select1">Select Destination</label>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
                                 <select name="Persons" class="form-select bg-white border-0" id="SelectPerson">
-                                    <option value="1">Persons 1</option>
-                                    <option value="2">Persons 2</option>
-                                    <option value="3">Persons 3</option>
+                                    <?php
+                                    $collection = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
+                                    ?>
+                                    @foreach ($collection as $item)
+                                        <option value="{{$item}}">Persons {{$item}}</option>
+                                    @endforeach
                                 </select>
                                 <label for="SelectPerson">Persons</label>
                             </div>
@@ -93,6 +105,10 @@
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
+                                    <option value="3">4</option>
+                                    <option value="3">5</option>
+                                    <option value="3">6</option>
+                                    <option value="3">7</option>
                                 </select>
                                 <label for="CategoriesSelect">Kids</label>
                             </div>

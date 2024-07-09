@@ -40,8 +40,25 @@ class ToursController extends Controller
     }
     public function Packages()
     {
+        $filePath = public_path('cities.json');
+        
+        // Check if the file exists
+        if (!file_exists($filePath)) {
+            abort(404, "File not found");
+        }
+        
+        // Read the file content
+        $content = file_get_contents($filePath);
+        
+        // Decode the JSON content to an array
+        $cities = json_decode($content, true);
+        
+        // Check if json_decode() returned an error
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            abort(500, "Invalid JSON format");
+        }
         $tourPackages = TourPackage::paginate(10);
-        return view('packages', compact('tourPackages'));
+        return view('packages', compact('tourPackages','cities'));
     }
 
 
